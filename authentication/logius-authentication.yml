@@ -1,0 +1,29 @@
+generated: '2026-10-09'
+method: searched
+source: https://logius-standaarden.github.io/fsc-core/
+docs: https://logius-standaarden.github.io/fsc-core/
+summary:
+  types:
+  - http
+  - mutualTLS
+schemes:
+- name: JWT-Claims
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/logius-notificatieservices-openapi.yml
+- name: FSC mTLS (X.509 / PKI trust anchor)
+  type: mutualTLS
+  applies_to: FSC Core Manager API (logius:fsc-core-manager)
+  description: "Connections between Managers, Inways, Outways use Mutual Transport Layer Security (mTLS) with X.509 certificates. Participating Peers agree on a Root CA acting as Trust Anchor; the PeerID is determined by at least one element from the subject field of the X.509 certificate."
+  note: Documented in the FSC Core standard (section 3.1 Identity and Trust); not declared as a securityScheme in the OpenAPI.
+  sources:
+  - https://logius-standaarden.github.io/fsc-core/
+- name: FSC access token (Fsc-Authorization header)
+  type: http
+  scheme: bearer
+  applies_to: FSC Inway service calls; tokens issued by the Manager getToken operation (POST /token)
+  description: "Access tokens are carried in the HTTP header Fsc-Authorization; on a missing/invalid/expired token the WWW-Authenticate header MUST be set to Bearer."
+  sources:
+  - https://logius-standaarden.github.io/fsc-core/

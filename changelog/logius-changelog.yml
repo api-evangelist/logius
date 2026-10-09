@@ -1,0 +1,12 @@
+generated: '2026-10-09'
+method: searched
+source: https://github.com/Logius-standaarden/API-Design-Rules/releases.atom
+scheme: semver (release tags)
+current_version: v2.2.0
+note: Release feeds of Logius-maintained standards (NL GOV API Design Rules and FSC Core). Dates are the feed entry <updated> timestamps; release notes were not read, so breaking is null rather than guessed.
+entries:
+- {product: API Design Rules, version: v2.2.0, date: '2026-06-04', breaking: null, highlights: [Release v2.2.0], url: 'https://github.com/Logius-standaarden/API-Design-Rules/releases/tag/v2.2.0'}
+- {product: API Design Rules, version: v2.2.0-rc.1, date: '2026-05-07', breaking: null, highlights: [Release candidate], url: 'https://github.com/Logius-standaarden/API-Design-Rules/releases/tag/v2.2.0-rc.1'}
+- {product: API Design Rules, version: v2.1.0, date: '2025-09-29', breaking: null, highlights: [Release v2.1.0], url: 'https://github.com/Logius-standaarden/API-Design-Rules/releases/tag/v2.1.0'}
+- {product: API Design Rules, version: v2.0.2, date: '2025-02-18', breaking: null, highlights: [Release v2.0.2], url: 'https://github.com/Logius-standaarden/API-Design-Rules/releases/tag/v2.0.2'}
+- {product: FSC Core, version: 1.1.0-rc, date: '2025-08-07', breaking: null, highlights: [Release candidate], url: 'https://github.com/Logius-standaarden/fsc-core/releases/tag/1.1.0-rc'}

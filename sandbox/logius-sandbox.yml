@@ -1,0 +1,9 @@
+generated: '2026-10-09'
+method: searched
+source: https://aansluiten.procesinfrastructuur.nl/
+docs: https://aansluiten.procesinfrastructuur.nl/
+name: Aansluit Suite Digipoort
+description: "Self-service onboarding and test suite for Digipoort integrations. Quoted from the page: 'De Aansluit Suite Digipoort heeft als primair doel de softwareontwikkelaar te ondersteunen bij de ontwikkeling van systeemkoppelingen met Digipoort. Maar ook als u niet zelf een systeemkoppeling beheert kunt u hier berichten valideren en de gegevensstandaarden bekijken.' The site has a Testen section and requires registration/login."
+applies_to: logius:digipoort-wus-2-0-bedrijven
+test_values: []
+note: No test credentials or test values are published on the public page; they sit behind registration. None are recorded here.

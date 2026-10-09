@@ -1,0 +1,39 @@
+generated: '2026-10-09'
+method: searched
+source: https://logius-standaarden.github.io/fsc-core/
+standards:
+- id: rfc9457
+  conforms: true
+  evidence: openapi/logius-fsc-manager-openapi.yml and logius-notificatieservices-openapi.yml declare application/problem+json error responses;
+    API Design Rules require "application/problem+json or application/problem+xml" for 4xx/5xx (https://logius-standaarden.github.io/API-Design-Rules/)
+- id: cloudevents
+  conforms: true
+  evidence: openapi/logius-notificatieservices-openapi.yml — POST /events consumes application/cloudevents+json; subscription resource "derived
+    from the CloudEvents Subscription v1.0.0-wip"
+- id: mtls-x509
+  conforms: true
+  evidence: 'FSC Core 3.1 Identity and Trust: ''Connections between Managers, Inways, Outways use Mutual Transport Layer Security (mTLS) with
+    X.509 certificates.'' (https://logius-standaarden.github.io/fsc-core/)'
+- id: nl-gov-api-design-rules
+  conforms: unknown
+  evidence: Logius is the publisher of the standard (https://logius-standaarden.github.io/API-Design-Rules/); no statement found that its own
+    APIs are certified against it.
+- id: pagination
+  conforms: true
+  evidence: FSC Manager list operations take cursor/limit/sort_order query parameters (openapi/logius-fsc-manager-openapi.yml components.parameters
+    queryPagination*)
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.0
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.3
+- id: openapi-3.1
+  conforms: true
+  evidence: the document declares 3.1.0
+- id: oauth2
+  conforms: false
+  evidence: 'securitySchemes: JWT-Claims (http)'
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations

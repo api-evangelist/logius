@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-enabled-extensions-schema.json",
+  "title": "enabledExtensions",
+  "description": "A map of extensions and versions",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-fsc-manager-openapi.yml#/components/schemas/enabledExtensions",
+  "type": "object",
+  "properties": {
+    "EXTENSION_DELEGATION": {
+      "$ref": "#/$defs/delegationVersion"
+    },
+    "EXTENSION_TRANSACTION_LOGGING": {
+      "$ref": "#/$defs/loggingVersion"
+    }
+  },
+  "$defs": {
+    "delegationVersion": {
+      "description": "The version of the Delegation extension",
+      "type": "string",
+      "enum": [
+        "1.0.0"
+      ]
+    },
+    "loggingVersion": {
+      "description": "The version of the Logging extension",
+      "type": "string",
+      "enum": [
+        "1.0.0"
+      ]
+    }
+  }
+}

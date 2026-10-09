@@ -1,0 +1,213 @@
+openapi: 3.2.0
+info:
+  title: Logius Services API
+  version: 1.0.0
+  description: 'Operations tagged Services across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{managerUrl}:8443/v1
+  variables:
+    managerUrl:
+      default: localhost
+      description: URL of the Manager
+tags:
+- name: Services
+paths:
+  /services:
+    get:
+      summary: Returns Services for which the Manager has a valid Contract with a…
+      operationId: getServices
+      parameters:
+      - $ref: '#/components/parameters/queryPaginationCursor'
+      - $ref: '#/components/parameters/queryPaginationLimit'
+      - $ref: '#/components/parameters/queryPaginationOrder'
+      - in: query
+        description: A Peer ID on which to filter. Returns Services offered by the Peer defined in the PeerID filter. When multiple filters are used the Services where either condition is true should be returned
+        name: peer_id
+        schema:
+          $ref: '#/components/schemas/peerID'
+      - in: query
+        description: A Service name on which to filter. The search is case insensitive. Returns Services with a name that contains the Service name filter. When multiple filters are used the Services where either condition is true should be returned
+        name: service_name
+        schema:
+          $ref: '#/components/schemas/serviceName'
+      responses:
+        200:
+          description: A list of Services
+          content:
+            application/json:
+              schema:
+                properties:
+                  services:
+                    description: A list of Services
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/serviceListing'
+                  pagination:
+                    $ref: '#/components/schemas/paginationResult'
+                required:
+                - services
+                - pagination
+      tags:
+      - Services
+    servers:
+    - url: https://{managerUrl}:8443/v1
+      variables:
+        managerUrl:
+          default: localhost
+          description: URL of the Manager
+components:
+  schemas:
+    peerID:
+      description: The ID of a Peer
+      type: string
+      example: '12345678901234567891'
+      minLength: 3
+      maxLength: 255
+    serviceListingService:
+      properties:
+        type:
+          $ref: '#/components/schemas/serviceType'
+        peer:
+          $ref: '#/components/schemas/peer'
+        name:
+          $ref: '#/components/schemas/serviceName'
+        protocol:
+          $ref: '#/components/schemas/protocol'
+        properties:
+          description: The properties as specified in the ServicePublicationGrant
+          additionalProperties: true
+          type: object
+      required:
+      - type
+      - peer
+      - name
+      - protocol
+    serviceName:
+      description: The name of a service
+      type: string
+      example: random_service_name
+      minLength: 3
+      maxLength: 255
+    delegatorServiceListing:
+      description: The details of a Delegator
+      type: object
+      properties:
+        peer_id:
+          $ref: '#/components/schemas/peerID'
+        peer_name:
+          $ref: '#/components/schemas/peerName'
+      required:
+      - peer_id
+      - peer_name
+    serviceListing:
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/serviceListingService'
+          - $ref: '#/components/schemas/serviceListingDelegatedService'
+          discriminator:
+            propertyName: type
+            mapping:
+              SERVICE_TYPE_SERVICE: '#/components/schemas/serviceListingService'
+              SERVICE_TYPE_DELEGATED_SERVICE: '#/components/schemas/serviceListingDelegatedService'
+      required:
+      - type
+      - data
+    peerName:
+      description: The name of a Peer
+      type: string
+      example: Peer A
+      minLength: 3
+      maxLength: 255
+    serviceListingDelegatedService:
+      properties:
+        type:
+          $ref: '#/components/schemas/serviceType'
+        delegator:
+          $ref: '#/components/schemas/delegatorServiceListing'
+        peer:
+          $ref: '#/components/schemas/peer'
+        name:
+          $ref: '#/components/schemas/serviceName'
+        protocol:
+          $ref: '#/components/schemas/protocol'
+        properties:
+          description: The properties as specified in the DelegatedServicePublicationGrant
+          additionalProperties: true
+          type: object
+      required:
+      - type
+      - delegator
+      - peer
+      - name
+      - protocol
+    paginationResult:
+      type: object
+      properties:
+        next_cursor:
+          description: A cursor that can be used to retrieve the next page or an empty string if there are no more results
+          type: string
+    sortOrder:
+      description: The order in which the results should be returned
+      type: string
+      default: SORT_ORDER_DESCENDING
+      enum:
+      - SORT_ORDER_ASCENDING
+      - SORT_ORDER_DESCENDING
+    peer:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/peerID'
+        name:
+          $ref: '#/components/schemas/peerName'
+        manager_address:
+          description: The address of the Manager
+          type: string
+          example: https://manager.com:8443
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - name
+      - manager_address
+    serviceType:
+      description: The type of Service
+      type: string
+      enum:
+      - SERVICE_TYPE_SERVICE
+      - SERVICE_TYPE_DELEGATED_SERVICE
+    protocol:
+      description: application layer protocol supported
+      type: string
+      enum:
+      - PROTOCOL_TCP_HTTP_1.1
+      - PROTOCOL_TCP_HTTP_2
+  parameters:
+    queryPaginationCursor:
+      in: query
+      name: cursor
+      description: A cursor from which paginated results should be returned. Leave empty for the first page
+      schema:
+        type: string
+      required: false
+    queryPaginationLimit:
+      in: query
+      name: limit
+      description: The maximum number of results
+      schema:
+        type: integer
+        format: uint32
+        maximum: 1000
+        minimum: 1
+      required: false
+    queryPaginationOrder:
+      in: query
+      name: sort_order
+      description: The sorting order of the results
+      required: false
+      schema:
+        $ref: '#/components/schemas/sortOrder'
+x-refined-from:
+- logius-fsc-manager-openapi.yml
+- logius-fsc-manager-openapi.yml

@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: Logius FSC Core Manager API overlay (API Evangelist)
+  version: 1.0.0
+x-generated: '2026-10-09'
+x-method: generated
+extends: ../openapi/_original/logius-fsc-manager-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-provider: logius
+    x-api-evangelist-note: FSC Core is a Logius Standaarden interface standard; each Peer hosts its own Manager, so no base URL is defined.
+    x-source-url: https://raw.githubusercontent.com/Logius-standaarden/fsc-core/develop/media/specs/manager.yaml
+- target: $.paths['/contracts'].get
+  update:
+    operationId: listContracts
+- target: $.info
+  update:
+    x-documentation: https://logius-standaarden.github.io/fsc-core/

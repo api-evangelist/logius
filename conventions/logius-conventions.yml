@@ -1,0 +1,41 @@
+generated: '2026-10-09'
+method: searched
+source: https://logius-standaarden.github.io/fsc-core/
+sources:
+- https://logius-standaarden.github.io/fsc-core/
+- https://logius-standaarden.github.io/API-Design-Rules/
+- openapi/logius-fsc-manager-openapi.yml
+- openapi/logius-notificatieservices-openapi.yml
+design_standard:
+  name: NL GOV API Design Rules (maintained by Logius)
+  url: https://logius-standaarden.github.io/API-Design-Rules/
+  note: A standard Logius publishes for Dutch public-sector REST APIs, with a Spectral linter (see rules/). It is the convention source for the API family, not proof that every Logius service conforms.
+auth_style: mTLS with X.509 (PKI trust anchor) for FSC; JWT bearer for the Notification API; see authentication/logius-authentication.yml
+idempotency:
+  coverage: none
+  description: 'No idempotency-key mechanism in any contract. The API Design Rules only require HTTP method semantics ("/core/http-safety : Adhere to HTTP safety and idempotency semantics for operations"). FSC contracts are content-hash addressed (PUT /contracts/{hash}/accept|reject|revoke), which keys those signature calls by hash but is not a documented replay mechanism.'
+pagination:
+  style: cursor
+  params: [cursor, limit, sort_order]
+  scope: FSC Manager list endpoints (queryPaginationCursor / queryPaginationLimit / queryPaginationOrder components)
+errors:
+  format: application/problem+json (RFC 9457) plus FSC-specific Fsc-Error-Code header
+  catalog: errors/logius-error-codes.yml
+versioning:
+  rules: semver, major version in URI, full version in API-Version response header (API Design Rules)
+  lifecycle: lifecycle/logius-lifecycle.yml
+events:
+  format: application/cloudevents+json (Notification API; subscription resource derived from CloudEvents Subscription v1.0.0-wip)
+rate_limit_signaling: none documented; see rate-limits/logius-rate-limits.yml
+reversibility:
+  surfaces:
+  - surface: FSC contracts
+    reversal: revokeContract (PUT /contracts/{hash}/revoke); rejectContract (PUT /contracts/{hash}/reject) declines a proposed contract
+    window: not stated
+    grade: documented
+  - surface: Notification API subscriptions
+    reversal: subscription_delete (DELETE /subscriptions/{uuid})
+    window: not stated
+    grade: documented
+  - surface: Terugmelding (POST /terugmelding)
+    reversal: none in contract

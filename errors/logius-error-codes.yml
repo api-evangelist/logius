@@ -1,0 +1,31 @@
+generated: '2026-10-09'
+method: searched
+source: https://logius-standaarden.github.io/fsc-core/
+name: FSC Core error codes
+format: application/problem+json body plus Fsc-Error-Code HTTP header
+envelope:
+  header: Fsc-Error-Code
+  domain_field_values: [ERROR_DOMAIN_MANAGER, ERROR_DOMAIN_INWAY, ERROR_DOMAIN_OUTWAY]
+  note: "In case of an error within the scope of FSC these components MUST return the HTTP header Fsc-Error-Code which MUST contain the code specifying the error."
+scope: FSC Core standard (Manager, Inway, Outway). Codes are defined by the standard, which every implementing peer must return.
+problems:
+- {status: 422, title: ERROR_CODE_INCORRECT_GROUP_ID, domain: ERROR_DOMAIN_MANAGER, description: The Group ID in the Contract does not match the GroupID of the receiving Manager}
+- {status: 422, title: ERROR_CODE_SUBMITTING_PEER_NOT_PART_OF_CONTRACT, domain: ERROR_DOMAIN_MANAGER, description: The Peer tried to submit or sign a Contract where the submitting Peer is not on the Contract}
+- {status: 422, title: ERROR_CODE_RECEIVING_PEER_NOT_PART_OF_CONTRACT, domain: ERROR_DOMAIN_MANAGER, description: The Peer tried to submit or sign a Contract where the receiving Peer is not on the Contract}
+- {status: 422, title: ERROR_CODE_SIGNATURE_CONTRACT_CONTENT_HASH_MISMATCH, domain: ERROR_DOMAIN_MANAGER, description: The Peer tried to submit a signature with a Contract content hash that does not match the Contract}
+- {status: 400, title: ERROR_CODE_PEER_CERTIFICATE_VERIFICATION_FAILED, domain: ERROR_DOMAIN_MANAGER, description: "The Peer provided a x.509 certificate signed by the trust anchor of the Group but the content is invalid. E.g the Peer ID is in a incorrect format"}
+- {status: 422, title: ERROR_CODE_PEER_ID_SIGNATURE_MISMATCH, domain: ERROR_DOMAIN_MANAGER, description: The Peer submitted a signature that includes a Peer ID that does not match the ID of the submitting Peer}
+- {status: 422, title: ERROR_CODE_SIGNATURE_VERIFICATION_FAILED, domain: ERROR_DOMAIN_MANAGER, description: The Peer submitted a signature that could not be verified}
+- {status: 422, title: ERROR_CODE_GRANT_COMBINATION_NOT_ALLOWED, domain: ERROR_DOMAIN_MANAGER, description: The Peer submitted a Contract with a combination of Grants that is not allowed}
+- {status: 422, title: ERROR_CODE_URL_PATH_CONTENT_HASH_MISMATCH, domain: ERROR_DOMAIN_MANAGER, description: The Content Hash in the URL path does not match the Content Hash generated from the Contract Content in the request body}
+- {status: 422, title: ERROR_CODE_UNKNOWN_HASH_ALGORITHM_HASH, domain: ERROR_DOMAIN_MANAGER, description: The Hash Algorithm in the Contract Content hash or Grant Hash is not supported}
+- {status: 422, title: ERROR_CODE_UNKNOWN_ALGORITHM_SIGNATURE, domain: ERROR_DOMAIN_MANAGER, description: The Algorithm in the Signature is not supported}
+- {status: 422, title: ERROR_CODE_UNKNOWN_FSC_VERSION, domain: ERROR_DOMAIN_MANAGER, description: The FSC version in the Contract is unknown to the Manager}
+- {status: 405, title: ERROR_CODE_METHOD_UNSUPPORTED, domain: ERROR_DOMAIN_OUTWAY, description: The Outway received a request with an HTTP Method that is not supported. The CONNECT method is not supported.}
+- {status: 401, title: ERROR_CODE_ACCESS_TOKEN_MISSING, domain: ERROR_DOMAIN_INWAY, description: The HTTP header Fsc-Authorization does not contain an access token. In this scenario the HTTP header WWW-Authenticate MUST be set to Bearer}
+- {status: 401, title: ERROR_CODE_ACCESS_TOKEN_INVALID, domain: ERROR_DOMAIN_INWAY, description: The provided access token is invalid. In this scenario the HTTP header WWW-Authenticate MUST be set to Bearer}
+- {status: 401, title: ERROR_CODE_ACCESS_TOKEN_EXPIRED, domain: ERROR_DOMAIN_INWAY, description: The provided access token has expired. In this scenario the HTTP header WWW-Authenticate MUST be set to Bearer}
+- {status: 403, title: ERROR_CODE_WRONG_GROUP_ID_IN_TOKEN, domain: ERROR_DOMAIN_INWAY, description: The Group ID specified in the access token does not match the ID of the Group of the Inway}
+- {status: 404, title: ERROR_CODE_SERVICE_NOT_FOUND, domain: ERROR_DOMAIN_INWAY, description: The Service specified in the access token is not offered by the Inway}
+- {status: 502, title: ERROR_CODE_SERVICE_UNREACHABLE, domain: ERROR_DOMAIN_INWAY, description: The Inway is unable to reach the Service}
+note: Domain assignment (manager vs inway/outway) follows the section order in which the codes appear on the page (4.4.5.3 Codes for the Manager); verify against the page before relying on it.

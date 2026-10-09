@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: Logius Terugmeldingen Standaard API overlay (API Evangelist)
+  version: 1.0.0
+x-generated: '2026-10-09'
+x-method: generated
+extends: ../openapi/_original/logius-terugmelding-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-provider: logius
+    x-api-evangelist-note: Interface standard for base registrations to implement; no base URL is stated. operationIds below are proposed by API
+      Evangelist; the source spec has none.
+    x-source-url: https://raw.githubusercontent.com/Logius-standaarden/Terugmelding/develop/Ontwerp/TerugMelden%20spec.yaml
+    x-documentation: https://logius-standaarden.github.io/Terugmelding/
+- target: $.paths['/terugmelding'].get
+  update:
+    operationId: listTerugmeldingen
+    summary: Retrieve terugmeldingen (feedback reports)
+- target: $.paths['/terugmelding'].post
+  update:
+    operationId: createTerugmelding
+    summary: Submit a terugmelding (report a suspected inaccuracy)
+- target: $.paths['/terugmeldingStatus'].get
+  update:
+    operationId: getTerugmeldingStatus
+    summary: Retrieve the status of a terugmelding

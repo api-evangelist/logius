@@ -1,0 +1,112 @@
+type: MCPServer
+name: Logius MCP Server (candidate)
+provider: logius
+generated: '2026-10-09'
+method: derived
+status: candidate
+source:
+- openapi/logius-fsc-manager-openapi.yml
+- openapi/logius-notificatieservices-openapi.yml
+- openapi/logius-terugmelding-openapi.yml
+description: >-
+  Logius does not publish an MCP server. A web search on 2026-10-09 ("Logius MCP server
+  Model Context Protocol") returned nothing from Logius, and the preflight probes of
+  www.logius.nl, logius.nl and mailing.logius.nl found no MCP documentation. This is a
+  CANDIDATE tool list derived from the operationIds in the three Logius Standaarden
+  OpenAPI contracts saved in this repo. These contracts are interface standards that
+  implementers host themselves (no base URL), so any server built from them would point
+  at an implementer's deployment, not at a Logius-hosted endpoint.
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+evidence:
+- query: Logius MCP server "Model Context Protocol"
+  result: no Logius MCP server found
+  date: '2026-10-09'
+tools:
+- name: announce
+  api: logius:fsc-core-manager
+  operation: announce
+  description: Announce a Peer to the FSC Manager.
+- name: submitContract
+  api: logius:fsc-core-manager
+  operation: submitContract
+  description: Submit a new FSC contract.
+- name: acceptContract
+  api: logius:fsc-core-manager
+  operation: acceptContract
+  description: Accept a contract by hash.
+- name: rejectContract
+  api: logius:fsc-core-manager
+  operation: rejectContract
+  description: Reject a contract by hash.
+- name: revokeContract
+  api: logius:fsc-core-manager
+  operation: revokeContract
+  description: Revoke a contract by hash.
+- name: getToken
+  api: logius:fsc-core-manager
+  operation: getToken
+  description: Obtain a JWT that authorizes a connection to a Service.
+- name: getPeerInfo
+  api: logius:fsc-core-manager
+  operation: getPeerInfo
+  description: Info about the Peer providing the Manager.
+- name: getPeers
+  api: logius:fsc-core-manager
+  operation: getPeers
+  description: Peers known by the Manager.
+- name: getServices
+  api: logius:fsc-core-manager
+  operation: getServices
+  description: Services for which the Manager has a valid Contract.
+- name: getJSONWebKeySet
+  api: logius:fsc-core-manager
+  operation: getJSONWebKeySet
+  description: JSON Web Key Set (RFC 7517).
+- name: events_post
+  api: logius:notificatieservices
+  operation: events_post
+  description: Publish an event (NL GOV CloudEvents profile).
+- name: domains_list
+  api: logius:notificatieservices
+  operation: domains_list
+  description: List domains.
+- name: domains_post
+  api: logius:notificatieservices
+  operation: domains_post
+  description: Define a domain.
+- name: domains_get
+  api: logius:notificatieservices
+  operation: domains_get
+  description: Request domain info.
+- name: subscriptions_list
+  api: logius:notificatieservices
+  operation: subscriptions_list
+  description: List subscriptions.
+- name: subscriptions_post
+  api: logius:notificatieservices
+  operation: subscriptions_post
+  description: Subscribe.
+- name: subscription_get
+  api: logius:notificatieservices
+  operation: subscription_get
+  description: Request subscription info.
+- name: subscription_put
+  api: logius:notificatieservices
+  operation: subscription_put
+  description: Update subscription.
+- name: subscription_patch
+  api: logius:notificatieservices
+  operation: subscription_patch
+  description: Patch subscription.
+- name: subscription_delete
+  api: logius:notificatieservices
+  operation: subscription_delete
+  description: Delete subscription.
+notes: >-
+  GET /contracts (FSC) and the three Terugmelding operations have no operationId in the
+  source contracts; the overlays in overlays/ propose ids for them (listContracts,
+  listTerugmeldingen, createTerugmelding, getTerugmeldingStatus) but they are not tools
+  here because they are not in the original specs.

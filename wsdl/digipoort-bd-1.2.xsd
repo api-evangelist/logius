@@ -1,0 +1,311 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://logius.nl/digipoort/belastingdienstservices/1.2/" targetNamespace="http://logius.nl/digipoort/belastingdienstservices/1.2/" elementFormDefault="qualified">
+    <xsd:element name="machtiging">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="machtigingsclaim">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="mutatieType" type="tns:mutatieType" nillable="false"/>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+                <xsd:element name="activatieToken" type="tns:activatieToken" nillable="false" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getMachtigingToestandRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getMachtigingToestandResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="toestand" type="tns:toestandType" nillable="false"/>
+                <xsd:element name="datum" type="xsd:dateTime" nillable="false"/>
+                <xsd:element name="actor" type="tns:actorType" nillable="false"/>
+                <xsd:element name="reden" type="tns:redenType" nillable="false" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getNieuweToestandenRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false" minOccurs="0"/>
+                <xsd:element name="tijdstempelVanaf" type="xsd:dateTime" nillable="false" minOccurs="0"/>
+                <xsd:element name="tijdstempelTot" type="xsd:dateTime" nillable="false" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getNieuweToestandenResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="getNieuweToestandenReturn" type="tns:ArrayOfMachtigingToestand" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="machtigingRaadpleegFault" type="tns:foutType"/>
+    <xsd:element name="abonnementRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="abonnementResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="resultaat" type="xsd:boolean" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="abonnementFault" type="tns:foutType"/>
+    <xsd:element name="viaOpvraagServiceFault" type="tns:foutType"/>
+    <xsd:element name="getVIAMessageRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+                <xsd:element name="kenmerk" type="tns:kenmerkType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="getVIAMessageResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+                <xsd:element name="identiteitGemachtigde" type="tns:identiteitGemachtigdeType" nillable="false"/>
+                <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+                <xsd:element name="kenmerk" type="tns:kenmerkType" nillable="false"/>
+                <xsd:element name="voorIngevuldeAangifte" type="tns:viaType" nillable="false"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <!--
+                Lijst van ondersteunde types
+
+              Op sommige elementen vindt normalisatie plaats (base="xsd:normalizedString"):
+                        Mag geen enters (#xD of #xA) of tabs (#x9)
+                        bevatten, indien aanwezig worden deze vervangen door spaties. Alle
+                        dubbele spaties worden vervangen door enkele spaties. Spaties aan
+                        het begin en eind worden verwijdered.
+            -->
+    <xsd:simpleType name="dienstType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Tekst
+                Maximale lengte	:	80
+                Beschrijving			:	Het element dienst beschrijft de dienst waarop de aanleveraar/belanghebbende geabonneerd is. Een dienst bestaat uit 1 of meerdere berichtsoorten.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="80"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="mutatieType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12"/>
+            <xsd:enumeration value="opvoeren"/>
+            <xsd:enumeration value="intrekken"/>
+            <xsd:enumeration value="activeren"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="activatieToken">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Tekst
+                Maximale lengte	:	100
+                Beschrijving			:	Het element activatieToken wordt gebruikt ter controle bij een machtigingsclaim met type activeren.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="100"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="identiteitGemachtigdeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Nummer in combinatie met het type
+                Maximale lengte	: 	20
+                Beschrijving			:	De identiteit van de gemachtigde is een nummer waarmee degene die door de vertegenwoordigde gemachtigd
+                wordt/is kan worden geidentificeerd.
+
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="nummer" nillable="false">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:normalizedString">
+                        <xsd:whiteSpace value="collapse"/>
+                        <xsd:maxLength value="20"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="type" nillable="false">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="6"/>
+                        <xsd:enumeration value="HRN"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="identiteitVertegenwoordigdeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Nummer in combinatie met het type
+                Maximale lengte	: 	20
+                Beschrijving			:	De identiteit van de vertegenwoordigde is een nummer waarmee degene die door de gemachtigde wordt vertegenwoordigd
+                wordt/is kan worden geidentificeerd.
+
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="nummer" nillable="false">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:normalizedString">
+                        <xsd:whiteSpace value="collapse"/>
+                        <xsd:maxLength value="20"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="type" nillable="false">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="6"/>
+                        <xsd:enumeration value="PersNr"/>
+                        <xsd:enumeration value="KvK"/>
+                        <xsd:enumeration value="LHnr"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="toestandType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:enumeration value="In Behandeling"/>
+            <xsd:enumeration value="Afgekeurd"/>
+            <xsd:enumeration value="Actief"/>
+            <xsd:enumeration value="Niet Actief"/>
+            <xsd:enumeration value="Ontvangen"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="actorType">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="30"/>
+            <xsd:enumeration value="S2S"/>
+            <xsd:enumeration value="Servicedesk"/>
+            <xsd:enumeration value="Systeem"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="redenType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Tekst
+                Maximale lengte	:	8192
+                Beschrijving			:	De reden waarom de machtiging in een toestand is gekomen.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="8192"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="foutcodeType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Element				:	foutcodeType
+                Type						: 	Tekst
+                Maximale lengte	:	20
+                Beschrijving			:	Een unieke code waarmee een fout kan worden geidentificeerd.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="foutbeschrijvingType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Tekst
+                Maximale lengte	:	8192
+                Beschrijving			:	Een omschrijving van de fout.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="8192"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="kenmerkType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Tekst
+                Maximale lengte	:	40
+                Beschrijving			:	Het unieke kenmerk van een instantie van het verwerkingsproces.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:normalizedString">
+            <xsd:whiteSpace value="collapse"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="viaType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	xsd:base64Binary
+                Maximale lengte	:	20971520
+                Beschrijving			:	De VoorIngevulde Aangifte. Deze XBRL aangifte is Base64 gecodeerd.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:base64Binary">
+            <xsd:maxLength value="20971520"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="foutType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Type						:	Combinatie van foutcode en foutomschrijving.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="foutcode" type="tns:foutcodeType" nillable="false"/>
+            <xsd:element name="foutbeschrijving" type="tns:foutbeschrijvingType" nillable="false"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArrayOfMachtigingToestand">
+        <xsd:sequence>
+            <xsd:element name="machtigingToestand" type="tns:machtigingToestand" nillable="false" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="machtigingToestand">
+        <xsd:sequence>
+            <xsd:element name="identiteitVertegenwoordigde" type="tns:identiteitVertegenwoordigdeType" nillable="false"/>
+            <xsd:element name="dienst" type="tns:dienstType" nillable="false"/>
+            <xsd:element name="toestand" type="tns:toestandType" nillable="false"/>
+            <xsd:element name="datum" type="xsd:dateTime" nillable="false"/>
+            <xsd:element name="actor" type="tns:actorType" nillable="false"/>
+            <xsd:element name="reden" type="tns:redenType" nillable="false" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

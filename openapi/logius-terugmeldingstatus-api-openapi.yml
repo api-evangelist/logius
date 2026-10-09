@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: Logius Terugmelding Status API
+  version: '0.3'
+  description: 'Operations tagged TerugmeldingStatus across 2 of this provider''s published API definitions: logius-terugmelding-openapi.yml, logius-terugmelding-openapi.yml. Each path carries the servers of the definition it was published in.'
+tags:
+- name: TerugmeldingStatus
+paths:
+  /terugmeldingStatus:
+    get:
+      parameters:
+      - name: terugMeldingReferentie
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ontvangen'
+      tags:
+      - TerugmeldingStatus
+      summary: Get terugmelding status
+      x-summary-source: derived
+      operationId: getTerugmeldingStatus
+      x-operation-id-source: derived
+components:
+  schemas:
+    Ontvangen:
+      description: Terugmelding ontvangen
+      type: object
+      properties:
+        terugMeldingReferentie:
+          description: Een door de ontvangende partij gegenereerde referentie van de TerugMelding
+          type: string
+          format: uuid
+        referentieKenmerk:
+          description: De door de meldende partij opgegeven referentie
+          type: string
+        status:
+          description: Code (maximaal 3 letterig) waarmee de basisregistratie wordt aangeduid wanneer de houder van een landelijke voorziening meer dan 1 basisregistratie beheert (bv BRT, BGT).
+          type: string
+          oneOf:
+          - title: Gemeld
+          - title: In Behandeling
+          - title: Ingepland
+          - title: Ingetrokken
+          - title: Onvoldoende ContactInformatie
+          - title: Afgehandeld
+        beschrijving:
+          description: Aanvullende informatie over de terugmelding
+          type: string
+x-refined-from:
+- logius-terugmelding-openapi.yml
+- logius-terugmelding-openapi.yml

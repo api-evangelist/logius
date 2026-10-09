@@ -1,0 +1,15 @@
+overlay: 1.0.0
+info:
+  title: Logius Notification API (Notificatieservices) overlay (API Evangelist)
+  version: 1.0.0
+x-generated: '2026-10-09'
+x-method: generated
+extends: ../openapi/_original/logius-notificatieservices-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-provider: logius
+    x-status: draft
+    x-api-evangelist-note: Draft standard from Logius Standaarden Notificatieservices; implementers host it themselves (servers is relative, /api/v1).
+      Events follow the NL GOV profile for CloudEvents.
+    x-source-url: https://raw.githubusercontent.com/Logius-standaarden/Notificatieservices/main/docs/api-specification/notifications.yaml

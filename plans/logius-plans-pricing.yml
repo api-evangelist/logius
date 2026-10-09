@@ -1,0 +1,36 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.logius.nl/zakendoen-met-logius/tarieven
+name: Logius tarieven
+audience: business-product
+pricing_basis: free
+published: true
+currency: EUR
+delivery:
+  delivery: managed
+note: "Since 2023 the Generic Digital Infrastructure (GDI) is centrally funded: 'De Generieke Digitale Infrastructuur (GDI) van de overheid wordt vanaf 2023 gefinancierd vanuit een centraal budget.' and 'Vanaf 2023 ontvangen zij hier geen facturen meer voor van Logius.' The per-transaction rates below are the HISTORICAL 2022 tariffs the page still lists; they no longer apply. Customers are Dutch public bodies (afnemers), not developers."
+plan_count: 4
+plans:
+- name: GDI central funding (2023 onwards)
+  description: DigiD, DigiD Machtigen, MijnOverheid and most Logius services are funded from a central BZK budget; afnemers are no longer invoiced.
+  price_text: "Vanaf 2023 ontvangen zij hier geen facturen meer voor van Logius."
+  features: [DigiD, DigiD Machtigen, MijnOverheid]
+  limits: []
+- name: DigiD (tarief 2022, historical)
+  price_text: "€ 0,13 per succesvolle authenticatie, exclusief btw"
+  price: 0.13
+  billing: per successful authentication
+  features: []
+  limits: []
+- name: DigiD Machtigen (tarief 2022, historical)
+  price_text: "€ 0,88 per gebruikte machtiging, exclusief btw"
+  price: 0.88
+  billing: per used authorisation
+  features: []
+  limits: []
+- name: MijnOverheid Berichtenbox (tarief 2022, historical)
+  price_text: "€ 0,32 per verwerkt bericht, exclusief btw"
+  price: 0.32
+  billing: per processed message
+  features: []
+  limits: []

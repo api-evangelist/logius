@@ -1,0 +1,470 @@
+{
+  "@context": {
+    "@vocab": "https://logius.nl/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "logius": "https://logius.nl/schema#",
+    "paginationResult": "logius:paginationResult",
+    "next_cursor": {
+      "@id": "logius:next_cursor",
+      "@type": "xsd:string"
+    },
+    "contract": "logius:contract",
+    "content": {
+      "@id": "logius:content",
+      "@type": "@id"
+    },
+    "signatures": {
+      "@id": "logius:signatures",
+      "@type": "@id"
+    },
+    "contractContent": "logius:contractContent",
+    "fsc_version": {
+      "@id": "logius:fsc_version",
+      "@type": "xsd:string"
+    },
+    "iv": {
+      "@id": "logius:iv",
+      "@type": "xsd:string"
+    },
+    "group_id": {
+      "@id": "logius:group_id",
+      "@type": "xsd:string"
+    },
+    "validity": {
+      "@id": "logius:validity",
+      "@type": "@id"
+    },
+    "grants": {
+      "@id": "logius:grants",
+      "@container": "@list"
+    },
+    "hash_algorithm": {
+      "@id": "logius:hash_algorithm",
+      "@type": "@id"
+    },
+    "created_at": {
+      "@id": "logius:created_at",
+      "@type": "xsd:integer"
+    },
+    "grant": "logius:grant",
+    "data": {
+      "@id": "logius:data"
+    },
+    "grantServiceConnection": "logius:grantServiceConnection",
+    "type": {
+      "@id": "logius:type",
+      "@type": "@id"
+    },
+    "outway": {
+      "@id": "logius:outway",
+      "@type": "@id"
+    },
+    "service": {
+      "@id": "logius:service"
+    },
+    "properties": {
+      "@id": "logius:properties"
+    },
+    "grantServicePublication": "logius:grantServicePublication",
+    "directory": {
+      "@id": "logius:directory",
+      "@type": "@id"
+    },
+    "grantDelegatedServiceConnection": "logius:grantDelegatedServiceConnection",
+    "delegator": {
+      "@id": "logius:delegator",
+      "@type": "@id"
+    },
+    "grantDelegatedServicePublication": "logius:grantDelegatedServicePublication",
+    "outwayIdentificationPublicKeyThumbprint": "logius:outwayIdentificationPublicKeyThumbprint",
+    "public_key_thumbprint": {
+      "@id": "logius:public_key_thumbprint",
+      "@type": "@id"
+    },
+    "outwayIdentificationDomainName": "logius:outwayIdentificationDomainName",
+    "domain_name": {
+      "@id": "logius:domain_name",
+      "@type": "@id"
+    },
+    "delegatedService": "logius:delegatedService",
+    "peer_id": {
+      "@id": "logius:peer_id",
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "logius:name",
+      "@type": "@id"
+    },
+    "servicePublication": "logius:servicePublication",
+    "protocol": {
+      "@id": "logius:protocol",
+      "@type": "@id"
+    },
+    "delegatorServiceListing": "logius:delegatorServiceListing",
+    "peer_name": {
+      "@id": "logius:peer_name",
+      "@type": "@id"
+    },
+    "serviceListing": "logius:serviceListing",
+    "serviceListingService": "logius:serviceListingService",
+    "peer": {
+      "@id": "logius:peer",
+      "@type": "@id"
+    },
+    "serviceListingDelegatedService": "logius:serviceListingDelegatedService",
+    "serviceType": "logius:serviceType",
+    "outwayIdentificationType": "logius:outwayIdentificationType",
+    "hashType": "logius:hashType",
+    "grantType": "logius:grantType",
+    "sortOrder": "logius:sortOrder",
+    "hashAlgorithm": "logius:hashAlgorithm",
+    "fscVersion": "logius:fscVersion",
+    "delegationVersion": "logius:delegationVersion",
+    "loggingVersion": "logius:loggingVersion",
+    "oAuthGrantType": "logius:oAuthGrantType",
+    "oAuthTokenType": "logius:oAuthTokenType",
+    "enabledExtensions": "logius:enabledExtensions",
+    "EXTENSION_DELEGATION": {
+      "@id": "logius:EXTENSION_DELEGATION",
+      "@type": "@id"
+    },
+    "EXTENSION_TRANSACTION_LOGGING": {
+      "@id": "logius:EXTENSION_TRANSACTION_LOGGING",
+      "@type": "@id"
+    },
+    "tokenErrorCode": "logius:tokenErrorCode",
+    "managerErrorCode": "logius:managerErrorCode",
+    "inwayErrorsCode": "logius:inwayErrorsCode",
+    "outwayErrorCode": "logius:outwayErrorCode",
+    "errorDomain": "logius:errorDomain",
+    "error": "logius:error",
+    "message": {
+      "@id": "logius:message",
+      "@type": "xsd:string"
+    },
+    "domain": {
+      "@id": "logius:domain",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "logius:code",
+      "@type": "@id"
+    },
+    "jwks": "logius:jwks",
+    "keys": {
+      "@id": "logius:keys",
+      "@container": "@list"
+    },
+    "jwk": "logius:jwk",
+    "kty": {
+      "@id": "logius:kty",
+      "@type": "xsd:string"
+    },
+    "use": {
+      "@id": "logius:use",
+      "@type": "xsd:string"
+    },
+    "key_ops": {
+      "@id": "logius:key_ops",
+      "@container": "@list"
+    },
+    "alg": {
+      "@id": "logius:alg",
+      "@type": "xsd:string"
+    },
+    "kid": {
+      "@id": "logius:kid",
+      "@type": "xsd:string"
+    },
+    "x5u": {
+      "@id": "logius:x5u",
+      "@type": "@id"
+    },
+    "x5c": {
+      "@id": "logius:x5c",
+      "@container": "@list"
+    },
+    "x5t": {
+      "@id": "logius:x5t",
+      "@type": "xsd:string"
+    },
+    "ecPublicKey": "logius:ecPublicKey",
+    "crv": {
+      "@id": "logius:crv",
+      "@type": "xsd:string"
+    },
+    "x": {
+      "@id": "logius:x",
+      "@type": "xsd:string"
+    },
+    "y": {
+      "@id": "logius:y",
+      "@type": "xsd:string"
+    },
+    "rsaPublicKey": "logius:rsaPublicKey",
+    "n": {
+      "@id": "logius:n",
+      "@type": "xsd:string"
+    },
+    "e": {
+      "@id": "logius:e",
+      "@type": "xsd:string"
+    },
+    "Domain": "logius:Domain",
+    "url": {
+      "@id": "logius:url",
+      "@type": "@id"
+    },
+    "uuid": {
+      "@id": "logius:uuid",
+      "@type": "xsd:string"
+    },
+    "documentationLink": {
+      "@id": "logius:documentationLink",
+      "@type": "@id"
+    },
+    "filterAttributes": {
+      "@id": "logius:filterAttributes",
+      "@container": "@list"
+    },
+    "Event": "logius:Event",
+    "specversion": {
+      "@id": "logius:specversion",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "logius:id",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "logius:source",
+      "@type": "xsd:string"
+    },
+    "time": {
+      "@id": "logius:time",
+      "@type": "xsd:dateTime"
+    },
+    "subscription": {
+      "@id": "logius:subscription",
+      "@type": "xsd:string"
+    },
+    "subscriberReference": {
+      "@id": "logius:subscriberReference",
+      "@type": "xsd:string"
+    },
+    "datacontenttype": {
+      "@id": "logius:datacontenttype",
+      "@type": "xsd:string"
+    },
+    "dataschema": {
+      "@id": "logius:dataschema",
+      "@type": "@id"
+    },
+    "subject": {
+      "@id": "logius:subject",
+      "@type": "xsd:string"
+    },
+    "sequence": {
+      "@id": "logius:sequence",
+      "@type": "xsd:string"
+    },
+    "sequencetype": {
+      "@id": "logius:sequencetype",
+      "@type": "xsd:string"
+    },
+    "data_base64": {
+      "@id": "logius:data_base64",
+      "@type": "xsd:string"
+    },
+    "dataref": {
+      "@id": "logius:dataref",
+      "@type": "@id"
+    },
+    "SubscriptionRequest": "logius:SubscriptionRequest",
+    "protocolSettings": {
+      "@id": "logius:protocolSettings"
+    },
+    "sink": {
+      "@id": "logius:sink",
+      "@type": "@id"
+    },
+    "sinkCredential": {
+      "@id": "logius:sinkCredential"
+    },
+    "types": {
+      "@id": "logius:types",
+      "@container": "@list"
+    },
+    "filters": {
+      "@id": "logius:filters",
+      "@container": "@list"
+    },
+    "config": {
+      "@id": "logius:config"
+    },
+    "Protocol": "logius:Protocol",
+    "CloudEventsAttribute": "logius:CloudEventsAttribute",
+    "SinkCredential": "logius:SinkCredential",
+    "credentialType": {
+      "@id": "logius:credentialType",
+      "@type": "xsd:string"
+    },
+    "Error": "logius:Error",
+    "title": {
+      "@id": "logius:title",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "logius:status",
+      "@type": "xsd:integer"
+    },
+    "detail": {
+      "@id": "logius:detail",
+      "@type": "xsd:string"
+    },
+    "instance": {
+      "@id": "logius:instance",
+      "@type": "xsd:string"
+    },
+    "FieldValidationError": "logius:FieldValidationError",
+    "reason": {
+      "@id": "logius:reason",
+      "@type": "xsd:string"
+    },
+    "ValidationError": "logius:ValidationError",
+    "invalidParams": {
+      "@id": "logius:invalidParams",
+      "@container": "@list"
+    },
+    "TerugMelding": "logius:TerugMelding",
+    "terugMeldingHeader": {
+      "@id": "logius:terugMeldingHeader",
+      "@type": "@id"
+    },
+    "terugMeldingBody": {
+      "@id": "logius:terugMeldingBody"
+    },
+    "TerugMeldingHeader": "logius:TerugMeldingHeader",
+    "registratie": {
+      "@id": "logius:registratie",
+      "@type": "@id"
+    },
+    "melder": {
+      "@id": "logius:melder",
+      "@type": "@id"
+    },
+    "datumMelding": {
+      "@id": "logius:datumMelding",
+      "@type": "xsd:date"
+    },
+    "peilmoment": {
+      "@id": "logius:peilmoment",
+      "@type": "xsd:dateTime"
+    },
+    "referentiekenmerk": {
+      "@id": "logius:referentiekenmerk",
+      "@type": "xsd:string"
+    },
+    "meldingBron": {
+      "@id": "logius:meldingBron",
+      "@type": "xsd:string"
+    },
+    "Registratie": "logius:Registratie",
+    "naam": {
+      "@id": "logius:naam",
+      "@type": "xsd:string"
+    },
+    "houder": {
+      "@id": "logius:houder",
+      "@type": "xsd:string"
+    },
+    "basisRegistratieCode": {
+      "@id": "logius:basisRegistratieCode",
+      "@type": "xsd:string"
+    },
+    "ObjectIdentificatie": "logius:ObjectIdentificatie",
+    "objectType": {
+      "@id": "logius:objectType",
+      "@type": "xsd:string"
+    },
+    "attribuutUrn": {
+      "@id": "logius:attribuutUrn",
+      "@type": "xsd:string"
+    },
+    "idWaarde": {
+      "@id": "logius:idWaarde",
+      "@type": "xsd:string"
+    },
+    "Geometry": "logius:Geometry",
+    "coordinates": {
+      "@id": "logius:coordinates",
+      "@container": "@list"
+    },
+    "TerugMeldingGegeven": "logius:TerugMeldingGegeven",
+    "betwijfeldeWaarde": {
+      "@id": "logius:betwijfeldeWaarde",
+      "@type": "xsd:string"
+    },
+    "voorgesteldeWaarde": {
+      "@id": "logius:voorgesteldeWaarde",
+      "@type": "xsd:string"
+    },
+    "eigenvelden": {
+      "@id": "logius:eigenvelden"
+    },
+    "bijlages": {
+      "@id": "logius:bijlages",
+      "@container": "@list"
+    },
+    "ContactInformatie": "logius:ContactInformatie",
+    "telefoon": {
+      "@id": "logius:telefoon",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "logius:email",
+      "@type": "xsd:string"
+    },
+    "bedrijf": {
+      "@id": "logius:bedrijf",
+      "@type": "xsd:string"
+    },
+    "Bijlage": "logius:Bijlage",
+    "bestandsnaam": {
+      "@id": "logius:bestandsnaam",
+      "@type": "xsd:string"
+    },
+    "beschrijving": {
+      "@id": "logius:beschrijving",
+      "@type": "xsd:string"
+    },
+    "mimeType": {
+      "@id": "logius:mimeType",
+      "@type": "xsd:string"
+    },
+    "bijlageData": {
+      "@id": "logius:bijlageData",
+      "@type": "xsd:string"
+    },
+    "Ontvangen": "logius:Ontvangen",
+    "terugMeldingReferentie": {
+      "@id": "logius:terugMeldingReferentie",
+      "@type": "xsd:string"
+    },
+    "referentieKenmerk": {
+      "@id": "logius:referentieKenmerk",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Logius API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Logius's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-09) from openapi/logius-fsc-manager-openapi.yml, openapi/logius-notificatieservices-openapi.yml, openapi/logius-terugmelding-openapi.yml.",
+  "dcterms:created": "2026-10-09",
+  "dcterms:source": [
+    "openapi/logius-fsc-manager-openapi.yml",
+    "openapi/logius-notificatieservices-openapi.yml",
+    "openapi/logius-terugmelding-openapi.yml"
+  ]
+}

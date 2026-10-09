@@ -1,0 +1,45 @@
+openapi: 3.2.0
+info:
+  title: Logius Announce API
+  version: 1.0.0
+  description: 'Operations tagged Announce across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{managerUrl}:8443/v1
+  variables:
+    managerUrl:
+      default: localhost
+      description: URL of the Manager
+tags:
+- name: Announce
+paths:
+  /announce:
+    put:
+      operationId: announce
+      summary: Used to announce a Peer to the Manager
+      description: When the Manager address of a Peer changes, the Peer can announce the new address using this endpoint
+      parameters:
+      - $ref: '#/components/parameters/headerFscManagerAddress'
+      responses:
+        200:
+          description: announcement was a success
+      tags:
+      - Announce
+    servers:
+    - url: https://{managerUrl}:8443/v1
+      variables:
+        managerUrl:
+          default: localhost
+          description: URL of the Manager
+components:
+  parameters:
+    headerFscManagerAddress:
+      in: header
+      name: fsc-manager-address
+      description: The URL of the Manager. The scheme must be https and the URL must contain the port.
+      schema:
+        type: string
+        example: https://manager.com:8443
+      required: true
+x-refined-from:
+- logius-fsc-manager-openapi.yml
+- logius-fsc-manager-openapi.yml

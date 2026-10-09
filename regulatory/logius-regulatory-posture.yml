@@ -1,0 +1,63 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.logius.nl/privacyverklaring
+signals:
+  data_subject_request:
+    url: https://www.logius.nl/privacyverklaring
+    section: 'Contact over uw rechten?'
+    channel: 'postbus 96810, 2509 JA Den Haag, or the Logius contact form'
+    stated_sla: 'U ontvangt in beginsel binnen een maand een beslissing op uw verzoek.'
+    rights_named: [access (inzage), correction, deletion, restriction, data in digital form (in certain cases), objection (in certain cases)]
+    evidence:
+    - source: https://www.logius.nl/privacyverklaring
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'Uw verzoek op grond van de AVG (zie hierboven) kunt u indienen door een brief te sturen naar postbus 96810, 2509 JA Den Haag of via het contactformulier .'
+    - source: https://www.logius.nl/privacyverklaring
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'U ontvangt in beginsel binnen een maand een beslissing op uw verzoek. Als u het niet eens bent met de beslissing kunt u hier bezwaar en beroep tegen instellen.'
+    note: >-
+      GDPR (AVG) rights requests are accepted by post or contact form, with a decision in principle within
+      one month and administrative objection/appeal available. The page ("Welke rechten heb ik?") lists access,
+      correction, deletion and restriction, and in certain cases data in digital form and objection.
+  data_retention:
+    url: https://www.logius.nl/privacyverklaring
+    section: 'Waarvoor verwerkt Logius persoonsgegevens? / Hoe lang bewaart Logius mijn gegevens?'
+    evidence:
+    - source: https://www.logius.nl/privacyverklaring
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'Voor het beantwoorden van uw vragen verwerkt Logius in ieder geval uw naam, telefoonnummer en e-mailadres. Afhankelijk van uw vraag kan ook uw BSN of andere benodigde informatie die noodzakelijk is voor de ondersteuning verwerkt worden. Deze gegevens worden 18 maanden bewaard.'
+    - source: https://www.logius.nl/privacyverklaring
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'De gegevens worden bewaard voor de duur van het gebruik van Logius-diensten, en daarna maximaal vijf jaar. Wanneer u bij Logius aangeeft geen contactpersoon meer te zijn, verwijderen wij uw gegevens binnen 10 werkdagen.'
+    - source: https://www.logius.nl/privacyverklaring
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'Na verloop van de bewaartermijn worden uw gegevens vernietigd of geanonimiseerd. In sommige gevallen volgen de bewaartermijnen uit de wet, in andere gevallen stelt Logius die vast.'
+    note: >-
+      Concrete retention periods for the general statement: support-query data is kept 18 months, and data
+      on customer (afnemer) contact persons is kept for the duration of service use plus at most five years,
+      or deleted within 10 working days once someone stops being a contact. Product-specific periods
+      (DigiD, MijnOverheid) are left to the per-product privacy statements. Archiefwet transfer to the
+      Nationaal Archief may apply.
+  accessibility_conformance:
+    url: https://www.logius.nl/over-ons/digitale-inclusie/toegankelijkheid
+    section: 'Toegankelijkheidsverklaring'
+    standard: EN 301 549 / WCAG 2.1
+    status: partially conformant
+    evidence:
+    - source: https://www.logius.nl/over-ons/digitale-inclusie/toegankelijkheid
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'Daarom staat in het  Tijdelijk besluit digitale toegankelijkheid overheid  dat overheidssites moeten voldoen aan toegankelijkheidseisen zoals vastgelegd in EN 301 549/WCAG 2.1 en daarover verantwoording moeten afleggen in een gepubliceerde toegankelijkheidsverklaring.'
+    - source: https://www.logius.nl/over-ons/digitale-inclusie/toegankelijkheid
+      http_status: 200
+      fetched: '2026-10-09'
+      quote: 'Logius.nl voldoet gedeeltelijk aan de eisen op het gebied van toegankelijkheid. In onze Toegankelijkheidsverklaring lichten wij toe op welke punten wij nog niet volledig voldoen en op welke termijn wij verwachten de knelpunten op te lossen.'
+    note: >-
+      Logius says logius.nl partially conforms to EN 301 549 / WCAG 2.1, as Dutch government accessibility
+      law requires, and it publishes accessibility statements for its websites and apps through the
+      DigiToegankelijk dashboard.

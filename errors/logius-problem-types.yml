@@ -1,0 +1,114 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/logius-fsc-manager-openapi.yml
+- openapi/logius-notificatieservices-openapi.yml
+- openapi/logius-terugmelding-openapi.yml
+format: rfc9457
+envelope:
+  media_type: application/problem+json
+  schema: Error
+coverage:
+  operations: 24
+  statuses_declared: 14
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad request
+  operations: 14
+  media_types:
+  - application/problem+json
+  - application/json
+  schema: ValidationError
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 404
+  title: Not Found
+  description: Not found
+  operations: 5
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 406
+  title: Not Acceptable
+  description: Not acceptable
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 409
+  title: Conflict
+  description: Conflict
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 410
+  title: Gone
+  description: Gone
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 412
+  title: Precondition Failed
+  description: Precondition failed
+  operations: 2
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 415
+  title: Unsupported Media Type
+  description: Unsupported media type
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 422
+  title: Unprocessable Content
+  description: Unprocessable content
+  operations: 4
+  media_types:
+  - application/json
+  schema: error
+- status: 429
+  title: Too Many Requests
+  description: Too many requests
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 500
+  title: Internal Server Error
+  description: Internal server error
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 501
+  title: Not Implemented
+  description: Not Implemented
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error
+- status: 503
+  title: Service Unavailable
+  description: Service Unavailable
+  operations: 10
+  media_types:
+  - application/problem+json
+  schema: Error

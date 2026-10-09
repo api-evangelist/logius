@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-contract-schema.json",
+  "title": "contract",
+  "description": "A Contract",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-fsc-manager-openapi.yml#/components/schemas/contract",
+  "type": "object",
+  "properties": {
+    "content": {
+      "$ref": "#/$defs/contractContent"
+    },
+    "signatures": {
+      "$ref": "#/$defs/signatures"
+    }
+  },
+  "required": [
+    "content",
+    "signatures"
+  ],
+  "$defs": {
+    "contractContent": {
+      "description": "The content of a Contract",
+      "type": "object",
+      "properties": {
+        "fsc_version": {
+          "description": "The version of the FSC specification that the Contract adheres to.",
+          "type": "string"
+        },
+        "iv": {
+          "description": "An Initialization vector for the Contract. Must be an UUID.",
+          "type": "string",
+          "minLength": 36,
+          "maxLength": 36
+        },
+        "group_id": {
+          "description": "The FSC Group ID",
+          "type": "string"
+        },
+        "validity": {
+          "$ref": "#/$defs/validity"
+        },
+        "grants": {
+          "description": "The Grants of the Contract",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grant"
+          }
+        },
+        "hash_algorithm": {
+          "$ref": "#/$defs/hashAlgorithm"
+        },
+        "created_at": {
+          "description": "A Unix timestamp of the creation date of the Contract",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "fsc_version",
+        "iv",
+        "group_id",
+        "validity",
+        "grants",
+        "hash_algorithm",
+        "created_at"
+      ]
+    },
+    "delegatedService": {
+      "description": "The details of a Service that is offered on behalf of another Peer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "name": {
+          "$ref": "#/$defs/serviceName"
+        },
+        "delegator": {
+          "$ref": "#/$defs/delegator"
+        }
+      },
+      "required": [
+        "type",
+        "peer_id",
+        "name",
+        "delegator"
+      ]
+    },
+    "delegator": {
+      "description": "The details of a Delegator",
+      "type": "object",
+      "properties": {
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        }
+      },
+      "required": [
+        "peer_id"
+      ]
+    },
+    "directory": {
+      "description": "The details of the Directory",
+      "type": "object",
+      "properties": {
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        }
+      },
+      "required": [
+        "peer_id"
+      ]
+    },
+    "domainName": {
+      "description": "A domain name according to RFC 1035",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "grant": {
+      "description": "A Grant",
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "description": "The details of the Grant",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/grantServicePublication"
+            },
+            {
+              "$ref": "#/$defs/grantServiceConnection"
+            },
+            {
+              "$ref": "#/$defs/grantDelegatedServiceConnection"
+            },
+            {
+              "$ref": "#/$defs/grantDelegatedServicePublication"
+            }
+          ]
+        }
+      }
+    },
+    "grantDelegatedServiceConnection": {
+      "description": "A DelegatedServiceConnectionGrant",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/grantType"
+        },
+        "outway": {
+          "$ref": "#/$defs/outway"
+        },
+        "service": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/service"
+            },
+            {
+              "$ref": "#/$defs/delegatedService"
+            }
+          ]
+        },
+        "delegator": {
+          "$ref": "#/$defs/delegator"
+        },
+        "properties": {
+          "description": "Optional JSON object with arbitrary key-value pairs",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "outway",
+        "service",
+        "delegator"
+      ]
+    },
+    "grantDelegatedServicePublication": {
+      "description": "A DelegatedServicePublicationGrant",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/grantType"
+        },
+        "directory": {
+          "$ref": "#/$defs/directory"
+        },
+        "service": {
+          "$ref": "#/$defs/servicePublication"
+        },
+        "delegator": {
+          "$ref": "#/$defs/delegator"
+        },
+        "properties": {
+          "description": "Optional JSON object with arbitrary key-value pairs",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "directory",
+        "service",
+        "delegator"
+      ]
+    },
+    "grantServiceConnection": {
+      "description": "A ServiceConnectionGrant",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/grantType"
+        },
+        "outway": {
+          "$ref": "#/$defs/outway"
+        },
+        "service": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/service"
+            },
+            {
+              "$ref": "#/$defs/delegatedService"
+            }
+          ]
+        },
+        "properties": {
+          "description": "Optional JSON object with arbitrary key-value pairs",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "outway",
+        "service"
+      ]
+    },
+    "grantServicePublication": {
+      "description": "A ServicePublicationGrant",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/grantType"
+        },
+        "directory": {
+          "$ref": "#/$defs/directory"
+        },
+        "service": {
+          "$ref": "#/$defs/servicePublication"
+        },
+        "properties": {
+          "description": "Optional JSON object with arbitrary key-value pairs",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "directory",
+        "service"
+      ]
+    },
+    "grantType": {
+      "description": "The type of Grant",
+      "type": "string",
+      "enum": [
+        "GRANT_TYPE_SERVICE_PUBLICATION",
+        "GRANT_TYPE_SERVICE_CONNECTION",
+        "GRANT_TYPE_DELEGATED_SERVICE_CONNECTION",
+        "GRANT_TYPE_DELEGATED_SERVICE_PUBLICATION"
+      ]
+    },
+    "hashAlgorithm": {
+      "description": "The hashing algorithm",
+      "type": "string",
+      "enum": [
+        "HASH_ALGORITHM_SHA3_512"
+      ]
+    },
+    "outway": {
+      "type": "object",
+      "properties": {
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "identification": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/outwayIdentificationDomainName"
+            },
+            {
+              "$ref": "#/$defs/outwayIdentificationPublicKeyThumbprint"
+            }
+          ]
+        }
+      },
+      "required": [
+        "peer_id",
+        "identification"
+      ]
+    },
+    "outwayIdentificationDomainName": {
+      "description": "The details of the Outway based on a domain name for which a connection was authorized",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/outwayIdentificationType"
+        },
+        "domain_name": {
+          "$ref": "#/$defs/domainName"
+        }
+      },
+      "required": [
+        "type",
+        "domain_name"
+      ]
+    },
+    "outwayIdentificationPublicKeyThumbprint": {
+      "description": "The details of the Outway based on a public key thumbprint for which a connection was authorized",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/outwayIdentificationType"
+        },
+        "public_key_thumbprint": {
+          "$ref": "#/$defs/publicKeyThumbprint"
+        }
+      },
+      "required": [
+        "type",
+        "public_key_thumbprint"
+      ]
+    },
+    "outwayIdentificationType": {
+      "description": "The type of Outway identification",
+      "type": "string",
+      "enum": [
+        "OUTWAY_IDENTIFICATION_TYPE_PUBLIC_KEY_THUMBPRINT",
+        "OUTWAY_IDENTIFICATION_TYPE_DOMAIN_NAME"
+      ]
+    },
+    "peerID": {
+      "description": "The ID of a Peer",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "protocol": {
+      "description": "application layer protocol supported",
+      "type": "string",
+      "enum": [
+        "PROTOCOL_TCP_HTTP_1.1",
+        "PROTOCOL_TCP_HTTP_2"
+      ]
+    },
+    "publicKeyThumbprint": {
+      "description": "The SHA-256 thumbprint of the public key used in the certificate of the Outway in HEX-encoded format",
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 64
+    },
+    "service": {
+      "description": "The details of a Service",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "name": {
+          "$ref": "#/$defs/serviceName"
+        }
+      },
+      "required": [
+        "type",
+        "peer_id",
+        "name"
+      ]
+    },
+    "serviceName": {
+      "description": "The name of a service",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "servicePublication": {
+      "description": "The details of a Service publication",
+      "type": "object",
+      "properties": {
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "name": {
+          "$ref": "#/$defs/serviceName"
+        },
+        "protocol": {
+          "$ref": "#/$defs/protocol"
+        }
+      },
+      "required": [
+        "name",
+        "peer_id",
+        "protocol"
+      ]
+    },
+    "serviceType": {
+      "description": "The type of Service",
+      "type": "string",
+      "enum": [
+        "SERVICE_TYPE_SERVICE",
+        "SERVICE_TYPE_DELEGATED_SERVICE"
+      ]
+    },
+    "signatureMap": {
+      "description": "Map of PeerIDs and accept signatures",
+      "type": "object",
+      "additionalProperties": {
+        "description": "signature",
+        "type": "string"
+      }
+    },
+    "signatures": {
+      "type": "object",
+      "description": "The accept, reject and revoke signatures",
+      "properties": {
+        "accept": {
+          "$ref": "#/$defs/signatureMap"
+        },
+        "reject": {
+          "$ref": "#/$defs/signatureMap"
+        },
+        "revoke": {
+          "$ref": "#/$defs/signatureMap"
+        }
+      },
+      "required": [
+        "accept",
+        "reject",
+        "revoke"
+      ]
+    },
+    "validity": {
+      "type": "object",
+      "properties": {
+        "not_before": {
+          "description": "A Unix timestamp, the Contract is not valid before this date.",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        },
+        "not_after": {
+          "description": "A Unix timestamp, the Contract is not valid after this date.",
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "not_before",
+        "not_after"
+      ]
+    }
+  }
+}

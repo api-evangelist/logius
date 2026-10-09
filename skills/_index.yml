@@ -1,0 +1,10 @@
+generated: '2026-10-09'
+method: generated
+source: openapi/
+skills:
+- name: logius-fsc-contract-lifecycle
+  file: skills/logius-fsc-contract-lifecycle.md
+  api: logius:fsc-core-manager
+- name: logius-notification-subscriptions
+  file: skills/logius-notification-subscriptions.md
+  api: logius:notificatieservices

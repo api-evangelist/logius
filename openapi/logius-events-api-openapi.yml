@@ -1,0 +1,429 @@
+openapi: 3.2.0
+info:
+  title: Logius Events API
+  version: 0.1.5
+  license:
+    name: EUPL 1.2
+    url: https://opensource.org/licenses/EUPL-1.2
+  description: 'Operations tagged events across 2 of this provider''s published API definitions: logius-notificatieservices-openapi.yml, logius-notificatieservices-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /api/v1
+security:
+- JWT-Claims: []
+tags:
+- name: Events
+paths:
+  /events:
+    parameters: []
+    post:
+      operationId: events_post
+      summary: Publish an event
+      description: The component will distribute the event to the subscribers when the criteria of a subscription are met.
+      requestBody:
+        content:
+          application/cloudevents+json; charset=utf-8:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/cloudevents+json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Bad request
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '406':
+          description: Not acceptable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '410':
+          description: Gone
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: Unsupported media type
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too many requests
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '501':
+          description: Not Implemented
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          headers:
+            API-version:
+              schema:
+                type: string
+              description: 'Version of the API. For example: 1.2.1.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Events
+      security:
+      - JWT-Claims:
+        - events.publish
+    servers:
+    - url: /api/v1
+components:
+  schemas:
+    FieldValidationError:
+      required:
+      - name
+      - code
+      - reason
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Naam van het veld met ongeldige gegevens
+          type: string
+          minLength: 1
+        code:
+          title: Code
+          description: Systeemcode die het type Error aangeeft
+          type: string
+          minLength: 1
+        reason:
+          title: Reason
+          description: Uitleg wat er precies Error is met de gegevens
+          type: string
+          minLength: 1
+    ValidationError:
+      required:
+      - code
+      - title
+      - status
+      - detail
+      - instance
+      - invalidParams
+      type: object
+      properties:
+        type:
+          title: Type
+          description: URI referentie naar het type Error, bedoeld voor developers
+          type: string
+        code:
+          title: Code
+          description: Systeemcode die het type Error aangeeft
+          type: string
+          minLength: 1
+        title:
+          title: Title
+          description: Generieke titel voor het type Error
+          type: string
+          minLength: 1
+        status:
+          title: Status
+          description: De HTTP status code
+          type: integer
+        detail:
+          title: Detail
+          description: Extra informatie bij de Error, indien beschikbaar
+          type: string
+          minLength: 1
+        instance:
+          title: Instance
+          description: URI met referentie naar dit specifiek voorkomen van de Error. Deze kan gebruikt worden in combinatie met server logs, bijvoorbeeld.
+          type: string
+          minLength: 1
+        invalidParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+    Error:
+      required:
+      - code
+      - title
+      - status
+      - detail
+      - instance
+      type: object
+      properties:
+        type:
+          title: Type
+          description: URI referentie naar het type Error, bedoeld voor developers
+          type: string
+        code:
+          title: Code
+          description: Systeemcode die het type Error aangeeft
+          type: string
+          minLength: 1
+        title:
+          title: Title
+          description: Generieke titel voor het type Error
+          type: string
+          minLength: 1
+        status:
+          title: Status
+          description: De HTTP status code
+          type: integer
+        detail:
+          title: Detail
+          description: Extra informatie bij de Error, indien beschikbaar
+          type: string
+          minLength: 1
+        instance:
+          title: Instance
+          description: URI met referentie naar dit specifiek voorkomen van de Error. Deze kan gebruikt worden in combinatie met server logs, bijvoorbeeld.
+          type: string
+          minLength: 1
+    Event:
+      required:
+      - id
+      - source
+      - domain
+      - specversion
+      - type
+      type: object
+      additionalProperties:
+        type: string
+      properties:
+        specversion:
+          title: specversion
+          description: The version of the CloudEvents specification which the event uses. Compliant event producers MUST use a value of 1.0 when referring to this version of the specification.
+          type: string
+          minLength: 1
+          example: '1.0'
+        id:
+          title: id
+          description: Identifies the event. Producers MUST ensure that source + id is unique for each distinct event. SHOULD be a uuid.
+          type: string
+          minLength: 1
+          example: 2febb675-b06c-4f3a-8fc3-f6649aa25ae4
+        source:
+          title: source
+          description: Identifies the context in which an event happened. SHOULD be a URN notation with 'nld' as namespace identifier. SHOULD contain consecutive a unique identifier of the organization that publishes the event followed by the source system that publishes the event. Involved organizations SHOULD agree on how organizations and systems are uniquely identified (e.g. via the use of OIN, KVK-nummer or eIDAS legal identifier for organization identification);
+          type: string
+          format: urn
+          minLength: 1
+          example: urn:nld:oin:00000001234567890000:systeem:Zaaksysteem
+        domain:
+          title: domain
+          description: Name of the domain to which the event belongs. Can be seen as the namespace of the event.(This attribute is not listed in the GOV NL profile for CloudEvents)
+          type: string
+          format: reverse-dns
+          minLength: 1
+          example: nl.vng.zgw.zaken
+        type:
+          title: type
+          description: This attribute contains a value describing the type of event. Type SHOULD start with the domain followed by the name of the event. Events SHOULD be expressed in the past tense. If subtypes are required those SHOULD be expressed using a dot '.' between the super and subtype(s). The type MAY contain version information. Version information SHOULD be appended at the end of the string.
+          type: string
+          format: reverse-dns
+          minLength: 1
+          example: nl.vng.zgw.zaken.status_gewijzigd
+        time:
+          title: time
+          description: Timestamp of the event. SHOULD be the timestamp the event was registerd in the source system and NOT the time the event occurred in reality. The exact meaning of time MUST be clearly documented.
+          type:
+          - string
+          - 'null'
+          format: date-time
+          minLength: 1
+          example: '2022-03-16T15:29:30.833664Z'
+        subscription:
+          title: subscription
+          description: Usually empty. Only used in situations where notificationservices are chained. For example notificationservice2 (ns2) is subscribed to notifcationservice1 (ns1). When ns1 sends an event to ns2 this attribute SHOULD contain the subscription id of the subscription that ns1 has on ns2 (that was resposible for receiving the event). Note this attribute is overwritten when the event is passed through to a client. It will be set to the value of the subscription id of the subscription of the client.
+          type:
+          - string
+          - 'null'
+          format: uuid
+          minLength: 1
+          example: a2de4777-1160-4562-a996-b79d27b30c99
+        subscriberReference:
+          title: subscriberReference
+          description: Usually empty. Only used in situations where notificationservices are chained. For example notificationservice2 (ns2) is subscribed to notifcationservice1 (ns1). When ns1 sends an event to ns2 this attribute COULD contain the subscriberReference the was specified when ns2 subscribed to ns1. Note this attribute is overwritten when the event is passed through to a client. It will be set to the value of the subscriberReference of the subscription of the client (when specified by the client).
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          example: 1285c6bc-1b54-48d8-96e2-c55a3f970c39
+        datacontenttype:
+          title: datacontenttype
+          description: Content type of data value. In this version of the API the value MUST be 'application/json'. In future versions of the API other values such as described in [RFC 2046](https://tools.ietf.org/html/rfc2046) MAY be used.
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          example: application/json
+        dataschema:
+          title: dataschema
+          description: Identifies the schema that data adheres to.
+          type:
+          - string
+          - 'null'
+          format: uri
+          minLength: 1
+          example: https:www.vng.nl/zgw/zaken/status_gewijzigd_schema.json
+        subject:
+          title: subject
+          description: Included to be compatible with CloudEvents specification. The GOV NL profile states 'Decision on whether or not to use the attribute and/or the exact interpretation is postponed. To be determined partly on the basis of future agreements about subscription and filtering.'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+        sequence:
+          description: Value expressing the relative order of the event. This enables interpretation of data supercedence.
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          example: '42'
+        sequencetype:
+          description: Specifies the semantics of the sequence attribute. (Currently limited to the value INTEGER).
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          enum:
+          - Integer
+        data:
+          oneOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: array
+          - type:
+            - boolean
+            - 'null'
+        data_base64:
+          description: The presence of the data_base64 member clearly indicates that the value is a Base64 encoded binary data, which the serializer MUST decode into a binary runtime data type.
+          type:
+          - string
+          - 'null'
+          format: byte
+        dataref:
+          description: A reference to a location where the event payload is stored. If both the data attribute and the dataref attribute are specified their contents MUST be identical.
+          type:
+          - string
+          - 'null'
+          format: uri
+          minLength: 1
+      example:
+        specversion: '1.0'
+        id: 2febb675-b06c-4f3a-8fc3-f6649aa25ae4
+        source: urn:nld:oin:00000001234567890000:systeem:Zaaksysteem
+        domain: nl.vng.zgw.zaken
+        type: nl.vng.zgw.zaken.status_gewijzigd
+        time: '2022-03-16T15:29:30.833664Z'
+        subscription: a2de4777-1160-4562-a996-b79d27b30c99
+        subscriberReference: 1285c6bc-1b54-48d8-96e2-c55a3f970c39
+        datacontenttype: application/json
+        dataschema: https:www.vng.nl/zgw/zaken/status_gewijzigd_schema.json
+        subject: string
+        sequence: '42'
+        sequencetype: Integer
+        data: {}
+        data_base64: string
+        dataref: string
+        <filterAttribute1>: string
+        <filterAttribute2>: string
+        <filterAttributeN>: string
+  securitySchemes:
+    JWT-Claims:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
+x-refined-from:
+- logius-notificatieservices-openapi.yml
+- logius-notificatieservices-openapi.yml

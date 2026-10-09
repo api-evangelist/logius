@@ -1,0 +1,471 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-subscription-schema.json",
+  "title": "Subscription",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-notificatieservices-openapi.yml#/components/schemas/Subscription",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/$defs/SubscriptionRequest"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "url": {
+          "title": "URL",
+          "description": "URL reference to this resource. This link is generated automatically.",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2042,
+          "minLength": 1,
+          "readOnly": true
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "REQUIRED. The unique identifier of the subscription in the scope of the subscription manager."
+        }
+      }
+    }
+  ],
+  "required": [
+    "url",
+    "id",
+    "sink",
+    "protocol"
+  ],
+  "$defs": {
+    "AccessTokenCredential": {
+      "type": "object",
+      "description": "An access token credential.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/SinkCredential"
+        },
+        {
+          "properties": {
+            "accessToken": {
+              "description": "REQUIRED. An access token is a previously acquired token granting access to the target resource.",
+              "type": "string"
+            },
+            "accessTokenExpiresUtc": {
+              "type": "string",
+              "format": "date-time",
+              "description": "RECOMMENDED. An absolute UTC instant at which the token shall be considered expired."
+            },
+            "accessTokenType": {
+              "description": "OPTIONAL. )Type of the access token (See https://tools.ietf.org/html/rfc6749#section-7.1).",
+              "type": "string",
+              "default": "bearer"
+            }
+          },
+          "required": [
+            "accessToken",
+            "accessTokenExpiresUtc"
+          ]
+        }
+      ]
+    },
+    "AllFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "description": "all filter",
+          "properties": {
+            "all": {
+              "description": "This filter evaluates to 'true' if all contained filters are 'true'",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "title": "Filter entry",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/Filter"
+                  },
+                  {
+                    "$ref": "#/$defs/AllFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/AnyFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/NotFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/ExactFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/PrefixFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/SuffixFilter"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "AnyFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "description": "any filter",
+          "properties": {
+            "any": {
+              "description": "This filter evaluates to 'true' if any contained filters are 'true'",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "title": "Filter entry",
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/Filter"
+                  },
+                  {
+                    "$ref": "#/$defs/AllFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/AnyFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/NotFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/ExactFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/PrefixFilter"
+                  },
+                  {
+                    "$ref": "#/$defs/SuffixFilter"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "CloudEventsAttribute": {
+      "type": "object",
+      "description": "CloudEvents defined attributes.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifies the event."
+        },
+        "source": {
+          "type": "string",
+          "description": "Identifies the context in which an event happened."
+        },
+        "specversion": {
+          "type": "string",
+          "description": "The version of the CloudEvents specification which the event uses."
+        },
+        "type": {
+          "type": "string",
+          "description": "Describes the type of event related to the originating occurrence."
+        },
+        "datacontenttype": {
+          "type": "string",
+          "description": "Content type of the data value."
+        },
+        "dataschema": {
+          "type": "string",
+          "description": "Identifies the schema that data adheres to."
+        },
+        "subject": {
+          "type": "string",
+          "description": "Describes the subject of the event in the context of the event producer."
+        },
+        "time": {
+          "type": "string",
+          "description": "Timestamp of when the occurrence happened."
+        }
+      }
+    },
+    "ExactFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "title": "exact filter",
+          "description": "This filter evaluates to 'true' if the 'value' exactly matches the value of the indicated CloudEvents context attribute",
+          "properties": {
+            "exact": {
+              "$ref": "#/$defs/CloudEventsAttribute"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Filter": {
+      "title": "Filter",
+      "description": "A filter from a selection of multiple filter types and dialects",
+      "type": "object",
+      "additionalProperties": true
+    },
+    "HTTPSettings": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ProtocolSettings"
+        },
+        {
+          "properties": {
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "POST"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "NotFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "description": "not filter",
+          "properties": {
+            "not": {
+              "type": "object",
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Filter"
+                },
+                {
+                  "$ref": "#/$defs/AllFilter"
+                },
+                {
+                  "$ref": "#/$defs/AnyFilter"
+                },
+                {
+                  "$ref": "#/$defs/NotFilter"
+                },
+                {
+                  "$ref": "#/$defs/ExactFilter"
+                },
+                {
+                  "$ref": "#/$defs/PrefixFilter"
+                },
+                {
+                  "$ref": "#/$defs/SuffixFilter"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PrefixFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "title": "prefix filter",
+          "description": "This filter evaluates to 'true' if the 'value' is a prefix of the value of the indicated CloudEvents context attribute",
+          "properties": {
+            "prefix": {
+              "$ref": "#/$defs/CloudEventsAttribute"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Protocol": {
+      "type": "string",
+      "enum": [
+        "HTTP"
+      ],
+      "description": "REQUIRED. Identifier of a delivery protocol."
+    },
+    "ProtocolSettings": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "RefreshTokenCredential": {
+      "type": "object",
+      "description": "An access token credential with a refresh token.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/AccessTokenCredential"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "refreshToken": {
+              "description": "REQUIRED. An refresh token credential used to acquire access tokens.",
+              "type": "string"
+            },
+            "refreshTokenEndpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "REQUIRED. A URL at which the refresh token can be traded for an access token."
+            }
+          }
+        }
+      ],
+      "required": [
+        "refreshToken",
+        "refreshTokenEndpoint"
+      ]
+    },
+    "SinkCredential": {
+      "type": "object",
+      "properties": {
+        "credentialType": {
+          "type": "string",
+          "enum": [
+            "ACCESSTOKEN",
+            "REFRESHTOKEN"
+          ],
+          "description": "The type of the credential."
+        }
+      },
+      "additionalProperties": false
+    },
+    "SubscriptionRequest": {
+      "properties": {
+        "protocol": {
+          "$ref": "#/$defs/Protocol"
+        },
+        "protocolSettings": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/HTTPSettings"
+            }
+          ]
+        },
+        "sink": {
+          "type": "string",
+          "format": "url",
+          "description": "REQUIRED. The address to which events shall be delivered using the selected protocol."
+        },
+        "sinkCredential": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AccessTokenCredential"
+            },
+            {
+              "$ref": "#/$defs/RefreshTokenCredential"
+            }
+          ]
+        },
+        "source": {
+          "type": "string",
+          "format": "urn",
+          "description": "OPTIONAL. Source to which the subscription applies. May be implied by the request address."
+        },
+        "domain": {
+          "type": "string",
+          "format": "reverse-dns",
+          "description": "OPTIONAL. Domain to which the subscription applies."
+        },
+        "types": {
+          "description": "CloudEvent types eligible to be delivered by this subscription",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filters": {
+          "description": "This filter evaluates to 'true' if all contained filters are 'true'",
+          "type": "array",
+          "items": {
+            "title": "Filter entry",
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Filter"
+              },
+              {
+                "$ref": "#/$defs/AllFilter"
+              },
+              {
+                "$ref": "#/$defs/AnyFilter"
+              },
+              {
+                "$ref": "#/$defs/NotFilter"
+              },
+              {
+                "$ref": "#/$defs/ExactFilter"
+              },
+              {
+                "$ref": "#/$defs/PrefixFilter"
+              },
+              {
+                "$ref": "#/$defs/SuffixFilter"
+              }
+            ]
+          }
+        },
+        "config": {
+          "description": "OPTIONAL. Implementation-specific configuration parameters needed by the subscription manager for acquiring events.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "subscriberReference": {
+          "description": "OPTIONAL. Events that are send to the subscriber will contain this reference. The subscriber can use the reference for internal routing of the event.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sink",
+        "protocol"
+      ]
+    },
+    "SuffixFilter": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Filter"
+        },
+        {
+          "type": "object",
+          "title": "suffix filter",
+          "description": "This filter evaluates to 'true' if the 'value' is a suffix of the value of the indicated CloudEvents context attribute",
+          "properties": {
+            "suffix": {
+              "$ref": "#/$defs/CloudEventsAttribute"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

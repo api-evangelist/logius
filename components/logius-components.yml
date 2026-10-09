@@ -1,0 +1,14 @@
+generated: '2026-10-09'
+method: searched
+source: https://github.com/nl-design-system/lux
+name: LUX — Logius Design System
+docs: https://nl-design-system.github.io/lux/
+families:
+- name: React components
+  packages: ['@lux-design-system/components-react', '@lux-design-system/web-components-react']
+- name: Web components (Stencil)
+  packages: ['@lux-design-system/web-components-stencil']
+- name: Design tokens and font
+  packages: ['@lux-design-system/design-tokens', '@lux-design-system/font']
+loaders: []
+note: Built on the NL Design System architecture; these are UI building blocks for Logius services, not embeddable API surfaces.

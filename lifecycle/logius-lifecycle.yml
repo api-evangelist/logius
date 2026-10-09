@@ -1,0 +1,15 @@
+generated: '2026-10-09'
+method: searched
+source: https://www.logius.nl/storingen-en-onderhoud
+status_page: https://www.logius.nl/storingen-en-onderhoud
+status_page_text: "Bekijk actuele storingen en gepland onderhoud van Logius-diensten."
+versioning:
+  scheme: semver (spec info.version) — FSC Core 1.0.0, Notification API 0.1.5, Terugmeldingen Standaard 0.3
+  policy_standard: https://logius-standaarden.github.io/API-Design-Rules/
+  note: "Logius publishes the NL GOV API Design Rules, which require: /core/semver 'Adhere to the Semantic Versioning model when releasing API changes', /core/uri-version 'Include the major version number in the URI', /core/version-header 'Return the full version number in a response header', and 'A maximum of 2 major API versions MAY be published concurrently.' These are rules Logius sets for Dutch government APIs; no Logius-specific statement that its own APIs follow them was found."
+deprecation:
+  policy_standard: https://logius-standaarden.github.io/API-Design-Rules/
+  rules: ["/core/deprecation-schedule : Include a deprecation schedule when deprecating features or versions", "Old versions MUST remain available for a limited and fixed deprecation period."]
+  deprecated_operations: []
+  sunset_header: not documented
+sla: not published

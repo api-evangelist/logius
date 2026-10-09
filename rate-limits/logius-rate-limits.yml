@@ -1,0 +1,6 @@
+generated: '2026-10-09'
+method: none
+name: Logius rate limits
+limit_count: 0
+limits: []
+note: No rate limits published in the FSC Core, Terugmelding or API Design Rules documentation, or in the three OpenAPI contracts (no 429 responses or RateLimit headers). Checked 2026-10-09.

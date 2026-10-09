@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-ontvangen-schema.json",
+  "title": "Ontvangen",
+  "description": "Terugmelding ontvangen",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-terugmelding-openapi.yml#/components/schemas/Ontvangen",
+  "type": "object",
+  "properties": {
+    "terugMeldingReferentie": {
+      "description": "Een door de ontvangende partij gegenereerde referentie van de TerugMelding",
+      "type": "string",
+      "format": "uuid"
+    },
+    "referentieKenmerk": {
+      "description": "De door de meldende partij opgegeven referentie",
+      "type": "string"
+    },
+    "status": {
+      "description": "Code (maximaal 3 letterig) waarmee de basisregistratie wordt aangeduid wanneer de houder van een landelijke voorziening meer dan 1 basisregistratie beheert (bv BRT, BGT).",
+      "type": "string",
+      "oneOf": [
+        {
+          "title": "Gemeld"
+        },
+        {
+          "title": "In Behandeling"
+        },
+        {
+          "title": "Ingepland"
+        },
+        {
+          "title": "Ingetrokken"
+        },
+        {
+          "title": "Onvoldoende ContactInformatie"
+        },
+        {
+          "title": "Afgehandeld"
+        }
+      ]
+    },
+    "beschrijving": {
+      "description": "Aanvullende informatie over de terugmelding",
+      "type": "string"
+    }
+  }
+}

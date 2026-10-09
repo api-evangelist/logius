@@ -1,23 +1,663 @@
 aid: logius
-name: Logius (NL)
-description: 'Logius (NL) is a company surfaced via the API Evangelist harvest backlog (source: spectral-ruleset-web)
-  and added to the network as a stub for full-pipeline profiling.'
+
+name: Logius
+
+description: Logius is the digital government service organisation of the Dutch Ministry of the Interior and Kingdom Relations (Ministerie van
+  Binnenlandse Zaken en Koninkrijksrelaties). It provides the shared ICT infrastructure and standards used by Dutch public service providers,
+  including DigiD, eHerkenning, MijnOverheid, Digipoort, Digikoppeling, PKIoverheid and Standard Business Reporting, and it maintains the NL GOV
+  REST API Design Rules and related API standards (with a Spectral linter ruleset) for the Dutch public sector.
+
 url: https://raw.githubusercontent.com/api-evangelist/logius/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:spectral-ruleset-web
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-09 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-09'
+
 modified: '2026-10-09'
+
+image: https://www.logius.nl/themes/custom/logius/logo.svg
+
 tags:
 - Company
-apis: []
+- Government
+- Netherlands
+- API Standards
+- API Design Rules
+- Digital Identity
+- Data Exchange
+- Public Sector
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: SecurityTxt
+  url: well-known/logius-www-security.txt
+- type: AgenticAccess
+  url: agentic-access/logius-agentic-access.yml
+- type: Plans
+  url: plans/logius-plans-pricing.yml
+- type: Spectral
+  url: rules/logius-rules.yml
+- type: Spectral
+  url: rules/logius-publicatie-preview-spectral-rules.yml
+- type: Spectral
+  url: rules/logius-publicatie-preview-api-design-rules-release-2-2-media-linte-spectral-rules.yml
+- type: Spectral
+  url: rules/logius-api-design-rules-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/logius-context.jsonld
+- type: Vocabulary
+  url: vocabulary/logius-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/logius-data-model.yml
+- type: Components
+  url: components/logius-components.yml
+- type: ChangeLog
+  url: changelog/logius-changelog.yml
+- type: Conventions
+  url: conventions/logius-conventions.yml
+- type: Sandbox
+  url: sandbox/logius-sandbox.yml
+- type: Deprecation
+  url: lifecycle/logius-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/logius-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/logius-error-codes.yml
+- type: ErrorCatalog
+  url: errors/logius-problem-types.yml
+- type: Conformance
+  url: conformance/logius-conformance.yml
+- type: Overlay
+  url: overlays/logius-fsc-manager-overlay.yaml
+- type: SecurityTxt
+  url: well-known/logius-security.txt
+- type: SecurityTxt
+  url: well-known/logius-logius-security.txt
+- type: WellKnown
+  url: well-known/logius-well-known.yml
+- type: Hosts
+  url: hosts/logius-hosts.yml
+- type: Vendors
+  url: vendors/logius-vendors.yml
+- type: SDKs
+  url: packages/logius-packages.yml
+- type: Packages
+  url: packages/logius-packages.yml
+- type: Authentication
+  url: authentication/logius-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/logius-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/logius-domain-security.yml
 - type: Website
+  url: https://schema.org/docs/schemas.html
+- type: Documentation
   url: https://logius-standaarden.github.io/API-Design-Rules/
+  title: NLgov REST API Design Rules
+- type: APIStandards
+  url: https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/api-standaarden
+- type: GitHubOrganization
+  url: https://github.com/Logius-standaarden
+- type: Blog
+  url: https://www.logius.nl/actueel
+  title: Actueel (news)
+- type: Support
+  url: https://www.logius.nl/contact
+- type: StatusPage
+  url: https://www.logius.nl/storingen-en-onderhoud
+  title: Storingen en onderhoud (outages and maintenance)
+- type: Pricing
+  url: https://www.logius.nl/zakendoen-met-logius/tarieven
+  title: Tarieven (service fees)
+- type: PrivacyPolicy
+  url: https://www.logius.nl/privacyverklaring
+- type: Security
+  url: https://www.logius.nl/kwetsbaarheden-problemen-melden
+  title: Kwetsbaarheden of problemen melden (vulnerability reporting)
+- type: About
+  url: https://www.logius.nl/about-logius
+- type: LinkedIn
+  url: https://nl.linkedin.com/company/logius
+- type: YouTube
+  url: https://www.youtube.com/@Logius_minbzk
+- type: SpectralRules
+  url: https://github.com/Logius-standaarden/Publicatie-Preview/blob/69a551bca14beeea84213c155a7c82c75bafabe5/API-Design-Rules/bad-request-errors/media/linter.yaml
+- type: SpectralRules
+  url: https://github.com/Logius-standaarden/API-Design-Rules/blob/27297e8e45282aeeddb31c011965b5e377b02d6f/media/linter.yaml
+- type: SpectralRules
+  url: https://github.com/Logius-standaarden/Publicatie-Preview/blob/69a551bca14beeea84213c155a7c82c75bafabe5/API-Design-Rules/release/2.2/media/linter.yaml
+
+apis:
+- aid: logius:digipoort-wus-2-0-bedrijven
+  name: Digipoort WUS 2.0 voor bedrijven
+  description: >-
+    Digipoort is the Logius electronic post office for exchanging messages between businesses and Dutch
+    government bodies (e.g. Belastingdienst, SBR filings). Its WUS 2.0 SOAP interface for businesses offers
+    the Aanleverservice (submit), Statusinformatieservice (status), Ophaalservice (retrieve) and Machtigingraadpleegservice
+    (authorisation lookup); WSDLs come from the koppelvlak ZIP Logius publishes on logius.nl.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - SOAP
+  - Digipoort
+  - Data Exchange
+  properties:
+  - type: WSDL
+    url: wsdl/logius-digipoort-aanleverservice.wsdl
+    title: Aanleverservice 1.2 (prod)
+  - type: WSDL
+    url: wsdl/logius-digipoort-statusinformatieservice.wsdl
+    title: Statusinformatieservice 1.2 (prod)
+  - type: WSDL
+    url: wsdl/logius-digipoort-ophaalservice.wsdl
+    title: Ophaalservice 1.2 (prod)
+  - type: WSDL
+    url: wsdl/logius-digipoort-machtigingraadpleegservice.wsdl
+    title: Machtigingraadpleegservice 1.2
+  - type: WSDL
+    name: WSDL bundle (provider-hosted ZIP)
+    url: >-
+      https://www.logius.nl/sites/default/files/bestanden/website/WUS-2.0-voor-bedrijven-v1.2-1_0.zip
+  - type: Documentation
+    url: https://aansluiten.procesinfrastructuur.nl/
+    title: Aansluit Suite Digipoort
+- aid: logius:logius-announce-api
+  name: Logius Announce API
+  description: The Announce API from Logius — 1 operation(s) for announce.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Announce
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-announce-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-contracts-api
+  name: Logius Contracts API
+  description: The Contracts API from Logius — 2 operation(s) for contracts.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-domains-api
+  name: Logius Domains API
+  description: The domains API from Logius — 2 operation(s) for domains.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - domains
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-domains-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-events-api
+  name: Logius Events API
+  description: The events API from Logius — 1 operation(s) for events.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - events
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-events-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-manager-api
+  name: Logius Manager API
+  description: The manager API from Logius — 3 operation(s) for manager.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - manager
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-manager-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-peers-api
+  name: Logius Peers API
+  description: The Peers API from Logius — 1 operation(s) for peers.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Peers
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-peers-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-services-api
+  name: Logius Services API
+  description: The Services API from Logius — 1 operation(s) for services.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Services
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-services-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-subscriptions-api
+  name: Logius Subscriptions API
+  description: The subscriptions API from Logius — 2 operation(s) for subscriptions.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-terugmelding-api
+  name: Logius Terugmelding API
+  description: The Terugmelding API from Logius — 1 operation(s) for terugmelding.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Terugmelding
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-terugmelding-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-terugmeldingstatus-api
+  name: Logius Terugmelding Status API
+  description: The TerugmeldingStatus API from Logius — 1 operation(s) for terugmeldingstatus.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - TerugmeldingStatus
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-terugmeldingstatus-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-token-api
+  name: Logius Token API
+  description: The Token API from Logius — 1 operation(s) for token.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-token-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+- aid: logius:logius-well-known-api
+  name: Logius .well Known API
+  description: The .well Known API from Logius — 1 operation(s) for .well known.
+  humanURL: >-
+    https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
+  baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
+  tags:
+  - .well Known
+  properties:
+  - type: OpenAPI
+    url: openapi/logius-well-known-api-openapi.yml
+  - type: Documentation
+    url: https://logius-standaarden.github.io/fsc-core/
+  - type: JSONSchema
+    url: json-schema/logius-contract-content-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-jwks-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-service-listing-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-peer-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-enabled-extensions-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-event-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-request-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-domain-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-subscription-schema.json
+  - type: Documentation
+    url: https://logius-standaarden.github.io/Terugmelding/
+  - type: JSONSchema
+    url: json-schema/logius-ontvangen-schema.json
+  - type: JSONSchema
+    url: json-schema/logius-terug-melding-schema.json
+x-enrichment:
+  date: '2026-10-09'
+  status: enriched
+  artifacts_added: 59
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: 'Enriched 2026-10-09: website and identity verified (verified) from the provider''s own pages; probed URLs below.'
+  evidence:
+  - url: https://www.logius.nl/
+    status: 200
+  - url: https://www.logius.nl/about-logius
+    status: 200
+  - url: https://github.com/Logius-standaarden
+    status: 200

@@ -1,0 +1,10 @@
+generated: '2026-10-09'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=logius
+note: No first-party API client SDKs found (npm search, PyPI 404 for "logius"). The npm packages below are LUX, the Logius design system (UI), whose package descriptions read "the Design System for Logius" and whose repo is titled "Lux — Logius Design System" (github.com/nl-design-system/lux). They are UI libraries, not API clients.
+packages:
+- {name: '@lux-design-system/components-react', registry: npm, url: 'https://www.npmjs.com/package/@lux-design-system/components-react', language: JavaScript, official: true, version: 1.2.3, published: '2026-03-23', kind: ui-components}
+- {name: '@lux-design-system/web-components-stencil', registry: npm, url: 'https://www.npmjs.com/package/@lux-design-system/web-components-stencil', language: JavaScript, official: true, version: 1.1.1, published: '2026-03-23', kind: ui-components}
+- {name: '@lux-design-system/web-components-react', registry: npm, url: 'https://www.npmjs.com/package/@lux-design-system/web-components-react', language: JavaScript, official: true, version: 1.1.1, published: '2026-03-23', kind: ui-components}
+- {name: '@lux-design-system/design-tokens', registry: npm, url: 'https://www.npmjs.com/package/@lux-design-system/design-tokens', language: JavaScript, official: true, version: 2.2.1, published: '2026-03-23', kind: design-tokens}
+- {name: '@lux-design-system/font', registry: npm, url: 'https://www.npmjs.com/package/@lux-design-system/font', language: JavaScript, official: true, version: 1.1.1, published: '2026-03-23', kind: font}

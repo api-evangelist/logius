@@ -1,0 +1,389 @@
+generated: '2026-10-09'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/logius-fsc-manager-openapi.yml
+- openapi/logius-notificatieservices-openapi.yml
+- openapi/logius-terugmelding-openapi.yml
+vocabulary:
+  name: Logius Domain Vocabulary
+  description: 'Terms declared by Logius''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-09'
+  terms:
+  - term: paginationResult
+    definition: 'Object declared by the contract with fields: next_cursor.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/paginationResult
+  - term: contract
+    definition: A Contract
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/contract
+  - term: contractContent
+    definition: The content of a Contract
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/contractContent
+  - term: validity
+    definition: 'Object declared by the contract with fields: not_before, not_after.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/validity
+  - term: signatures
+    definition: The accept, reject and revoke signatures
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/signatures
+  - term: signatureMap
+    definition: Map of PeerIDs and accept signatures
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/signatureMap
+  - term: grant
+    definition: A Grant
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grant
+  - term: grantServiceConnection
+    definition: A ServiceConnectionGrant
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grantServiceConnection
+  - term: grantServicePublication
+    definition: A ServicePublicationGrant
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grantServicePublication
+  - term: grantDelegatedServiceConnection
+    definition: A DelegatedServiceConnectionGrant
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grantDelegatedServiceConnection
+  - term: grantDelegatedServicePublication
+    definition: A DelegatedServicePublicationGrant
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grantDelegatedServicePublication
+  - term: outway
+    definition: 'Object declared by the contract with fields: peer_id, identification.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/outway
+  - term: outwayIdentificationPublicKeyThumbprint
+    definition: The details of the Outway based on a public key thumbprint for which a connection was authorized
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/outwayIdentificationPublicKeyThumbprint
+  - term: outwayIdentificationDomainName
+    definition: The details of the Outway based on a domain name for which a connection was authorized
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/outwayIdentificationDomainName
+  - term: directory
+    definition: The details of the Directory
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/directory
+  - term: service
+    definition: The details of a Service
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/service
+  - term: delegatedService
+    definition: The details of a Service that is offered on behalf of another Peer
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/delegatedService
+  - term: servicePublication
+    definition: The details of a Service publication
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/servicePublication
+  - term: delegator
+    definition: The details of a Delegator
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/delegator
+  - term: delegatorServiceListing
+    definition: The details of a Delegator
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/delegatorServiceListing
+  - term: serviceListing
+    definition: 'Object declared by the contract with fields: data.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceListing
+  - term: serviceListingService
+    definition: 'Object declared by the contract with fields: type, peer, name, protocol, properties.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceListingService
+  - term: serviceListingDelegatedService
+    definition: 'Object declared by the contract with fields: type, delegator, peer, name, protocol, properties.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceListingDelegatedService
+  - term: serviceType
+    definition: The type of Service
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceType
+  - term: outwayIdentificationType
+    definition: The type of Outway identification
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/outwayIdentificationType
+  - term: hashType
+    definition: The type of hash
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/hashType
+  - term: grantType
+    definition: The type of Grant
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/grantType
+  - term: sortOrder
+    definition: The order in which the results should be returned
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/sortOrder
+  - term: hashAlgorithm
+    definition: The hashing algorithm
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/hashAlgorithm
+  - term: fscVersion
+    definition: The version of the FSC specification
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/fscVersion
+  - term: delegationVersion
+    definition: The version of the Delegation extension
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/delegationVersion
+  - term: loggingVersion
+    definition: The version of the Logging extension
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/loggingVersion
+  - term: oAuthGrantType
+    definition: The grant_type of an access token request. FSC only uses client_credentials
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/oAuthGrantType
+  - term: oAuthTokenType
+    definition: The type of token. FSC only uses Bearer
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/oAuthTokenType
+  - term: peerID
+    definition: The ID of a Peer
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/peerID
+  - term: peerName
+    definition: The name of a Peer
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/peerName
+  - term: serviceName
+    definition: The name of a service
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceName
+  - term: publicKeyThumbprint
+    definition: The SHA-256 thumbprint of the public key used in the certificate of the Outway in HEX-encoded format
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/publicKeyThumbprint
+  - term: domainName
+    definition: A domain name according to RFC 1035
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/domainName
+  - term: peer
+    definition: 'Object declared by the contract with fields: id, name, manager_address.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/peer
+  - term: enabledExtensions
+    definition: A map of extensions and versions
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/enabledExtensions
+  - term: tokenErrorCode
+    definition: one of the error codes described in https://www.rfc-editor.org/rfc/rfc6749#section-5.2
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/tokenErrorCode
+  - term: managerErrorCode
+    definition: Error reasons that can be produced by the Manager
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/managerErrorCode
+  - term: inwayErrorsCode
+    definition: Error reasons that can be produced by the Inway
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/inwayErrorsCode
+  - term: outwayErrorCode
+    definition: Error reasons that can be produced by the Outway
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/outwayErrorCode
+  - term: errorDomain
+    definition: The FSC component in which the error occurred
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/errorDomain
+  - term: errorCode
+    definition: A unique code specifying the error
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/errorCode
+  - term: protocol
+    definition: application layer protocol supported
+    tags:
+    - Enumeration
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/protocol
+  - term: error
+    definition: 'Object declared by the contract with fields: message, domain, code.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/error
+  - term: jwks
+    definition: JSON Web Key Set to validate JSON Web Signatures, according to [RFC 7517](https://www.ietf.org/rfc/rfc7517.txt), with the additional
+      restrictions on algorithms listed in the [FSC](https://commonground.gitlab.io/standards/fsc/core/draft-fsc-core-00.html#name-access-token)
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/jwks
+  - term: jwk
+    definition: The value of the "keys" parameter is an array of JWK values. By default, the order of the JWK values within the array does not
+      imply an order of preference among them, although applications of JWK Sets can choose to assign a meaning to the order for their purposes,
+      if desired.
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/jwk
+  - term: ecPublicKey
+    definition: 'Object declared by the contract with fields: crv, x, y.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/ecPublicKey
+  - term: rsaPublicKey
+    definition: 'Object declared by the contract with fields: n, e.'
+    tags:
+    - Object
+    source: openapi/logius-fsc-manager-openapi.yml#/components/schemas/rsaPublicKey
+  - term: Domain
+    definition: 'Object declared by the contract with fields: url, uuid, name, documentationLink, filterAttributes.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/Domain
+  - term: Event
+    definition: 'Object declared by the contract with fields: specversion, id, source, domain, type, time, subscription, subscriberReference,
+      datacontenttype, dataschema, subject, sequence. (4 more)'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/Event
+  - term: SubscriptionRequest
+    definition: 'Object declared by the contract with fields: protocol, protocolSettings, sink, sinkCredential, source, domain, types, filters,
+      config, subscriberReference.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/SubscriptionRequest
+  - term: Protocol
+    definition: REQUIRED. Identifier of a delivery protocol.
+    tags:
+    - Enumeration
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/Protocol
+  - term: Filter
+    definition: A filter from a selection of multiple filter types and dialects
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/Filter
+  - term: CloudEventsAttribute
+    definition: CloudEvents defined attributes.
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/CloudEventsAttribute
+  - term: SinkCredential
+    definition: 'Object declared by the contract with fields: credentialType.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/SinkCredential
+  - term: AccessTokenCredential
+    definition: An access token credential.
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/AccessTokenCredential
+  - term: RefreshTokenCredential
+    definition: An access token credential with a refresh token.
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/RefreshTokenCredential
+  - term: Error
+    definition: 'Object declared by the contract with fields: type, code, title, status, detail, instance.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/Error
+  - term: FieldValidationError
+    definition: 'Object declared by the contract with fields: name, code, reason.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/FieldValidationError
+  - term: ValidationError
+    definition: 'Object declared by the contract with fields: type, code, title, status, detail, instance, invalidParams.'
+    tags:
+    - Object
+    source: openapi/logius-notificatieservices-openapi.yml#/components/schemas/ValidationError
+  - term: TerugMelding
+    definition: 'Object declared by the contract with fields: terugMeldingHeader, terugMeldingBody.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/TerugMelding
+  - term: TerugMeldingHeader
+    definition: 'Object declared by the contract with fields: registratie, melder, datumMelding, peilmoment, referentiekenmerk, meldingBron.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/TerugMeldingHeader
+  - term: Registratie
+    definition: 'Object declared by the contract with fields: naam, code, houder, basisRegistratieCode.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/Registratie
+  - term: ObjectIdentificatie
+    definition: De identificerende kenmerken van het object / data-element waar de terugmelding op wordt gedaan. Een of meerdere van deze kenmerken
+      verwijst naar 1 uniek object.
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/ObjectIdentificatie
+  - term: Geometry
+    definition: 'Object declared by the contract with fields: type, coordinates.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/Geometry
+  - term: TerugMeldingGegeven
+    definition: 'Object declared by the contract with fields: objectType, attribuutUrn, betwijfeldeWaarde, voorgesteldeWaarde, eigenvelden, bijlages.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/TerugMeldingGegeven
+  - term: ContactInformatie
+    definition: 'Object declared by the contract with fields: naam, telefoon, email, bedrijf.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/ContactInformatie
+  - term: Bijlage
+    definition: 'Object declared by the contract with fields: bestandsnaam, beschrijving, mimeType, bijlageData.'
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/Bijlage
+  - term: Ontvangen
+    definition: Terugmelding ontvangen
+    tags:
+    - Object
+    source: openapi/logius-terugmelding-openapi.yml#/components/schemas/Ontvangen

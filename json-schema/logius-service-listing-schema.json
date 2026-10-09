@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-service-listing-schema.json",
+  "title": "serviceListing",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-fsc-manager-openapi.yml#/components/schemas/serviceListing",
+  "properties": {
+    "data": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/serviceListingService"
+        },
+        {
+          "$ref": "#/$defs/serviceListingDelegatedService"
+        }
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "data"
+  ],
+  "$defs": {
+    "delegatorServiceListing": {
+      "description": "The details of a Delegator",
+      "type": "object",
+      "properties": {
+        "peer_id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "peer_name": {
+          "$ref": "#/$defs/peerName"
+        }
+      },
+      "required": [
+        "peer_id",
+        "peer_name"
+      ]
+    },
+    "peer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/peerID"
+        },
+        "name": {
+          "$ref": "#/$defs/peerName"
+        },
+        "manager_address": {
+          "description": "The address of the Manager",
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 3
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "manager_address"
+      ]
+    },
+    "peerID": {
+      "description": "The ID of a Peer",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "peerName": {
+      "description": "The name of a Peer",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "protocol": {
+      "description": "application layer protocol supported",
+      "type": "string",
+      "enum": [
+        "PROTOCOL_TCP_HTTP_1.1",
+        "PROTOCOL_TCP_HTTP_2"
+      ]
+    },
+    "serviceListingDelegatedService": {
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "delegator": {
+          "$ref": "#/$defs/delegatorServiceListing"
+        },
+        "peer": {
+          "$ref": "#/$defs/peer"
+        },
+        "name": {
+          "$ref": "#/$defs/serviceName"
+        },
+        "protocol": {
+          "$ref": "#/$defs/protocol"
+        },
+        "properties": {
+          "description": "The properties as specified in the DelegatedServicePublicationGrant",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "delegator",
+        "peer",
+        "name",
+        "protocol"
+      ]
+    },
+    "serviceListingService": {
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "peer": {
+          "$ref": "#/$defs/peer"
+        },
+        "name": {
+          "$ref": "#/$defs/serviceName"
+        },
+        "protocol": {
+          "$ref": "#/$defs/protocol"
+        },
+        "properties": {
+          "description": "The properties as specified in the ServicePublicationGrant",
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "peer",
+        "name",
+        "protocol"
+      ]
+    },
+    "serviceName": {
+      "description": "The name of a service",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 255
+    },
+    "serviceType": {
+      "description": "The type of Service",
+      "type": "string",
+      "enum": [
+        "SERVICE_TYPE_SERVICE",
+        "SERVICE_TYPE_DELEGATED_SERVICE"
+      ]
+    }
+  }
+}

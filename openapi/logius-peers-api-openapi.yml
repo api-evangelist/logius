@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  title: Logius Peers API
+  version: 1.0.0
+  description: 'Operations tagged Peers across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{managerUrl}:8443/v1
+  variables:
+    managerUrl:
+      default: localhost
+      description: URL of the Manager
+tags:
+- name: Peers
+paths:
+  /peers:
+    get:
+      summary: Returns the Peers who are known by the Manager
+      operationId: getPeers
+      parameters:
+      - $ref: '#/components/parameters/queryPaginationCursor'
+      - $ref: '#/components/parameters/queryPaginationLimit'
+      - $ref: '#/components/parameters/queryPaginationOrder'
+      - in: query
+        description: A Peer name on which to filter. The search is case insensitive. Return all Peers with a name that contains the peer_name filter
+        name: peer_name
+        schema:
+          $ref: '#/components/schemas/peerName'
+      - in: query
+        description: A list of Peer IDs on which to filter. When this query parameter is set the pagination parameters and other filters should be ignored
+        name: peer_id
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/peerID'
+        style: form
+        explode: false
+        required: false
+      responses:
+        200:
+          description: A list of Peers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  peers:
+                    description: A list of Peers
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/peer'
+                  pagination:
+                    $ref: '#/components/schemas/paginationResult'
+                required:
+                - peers
+                - pagination
+      tags:
+      - Peers
+    servers:
+    - url: https://{managerUrl}:8443/v1
+      variables:
+        managerUrl:
+          default: localhost
+          description: URL of the Manager
+components:
+  schemas:
+    peerID:
+      description: The ID of a Peer
+      type: string
+      example: '12345678901234567891'
+      minLength: 3
+      maxLength: 255
+    peerName:
+      description: The name of a Peer
+      type: string
+      example: Peer A
+      minLength: 3
+      maxLength: 255
+    paginationResult:
+      type: object
+      properties:
+        next_cursor:
+          description: A cursor that can be used to retrieve the next page or an empty string if there are no more results
+          type: string
+    sortOrder:
+      description: The order in which the results should be returned
+      type: string
+      default: SORT_ORDER_DESCENDING
+      enum:
+      - SORT_ORDER_ASCENDING
+      - SORT_ORDER_DESCENDING
+    peer:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/peerID'
+        name:
+          $ref: '#/components/schemas/peerName'
+        manager_address:
+          description: The address of the Manager
+          type: string
+          example: https://manager.com:8443
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - name
+      - manager_address
+  parameters:
+    queryPaginationCursor:
+      in: query
+      name: cursor
+      description: A cursor from which paginated results should be returned. Leave empty for the first page
+      schema:
+        type: string
+      required: false
+    queryPaginationLimit:
+      in: query
+      name: limit
+      description: The maximum number of results
+      schema:
+        type: integer
+        format: uint32
+        maximum: 1000
+        minimum: 1
+      required: false
+    queryPaginationOrder:
+      in: query
+      name: sort_order
+      description: The sorting order of the results
+      required: false
+      schema:
+        $ref: '#/components/schemas/sortOrder'
+x-refined-from:
+- logius-fsc-manager-openapi.yml
+- logius-fsc-manager-openapi.yml

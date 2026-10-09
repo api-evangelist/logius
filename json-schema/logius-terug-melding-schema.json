@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/logius/main/json-schema/logius-terug-melding-schema.json",
+  "title": "TerugMelding",
+  "x-generated": "2026-10-09",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/logius-terugmelding-openapi.yml#/components/schemas/TerugMelding",
+  "type": "object",
+  "properties": {
+    "terugMeldingHeader": {
+      "$ref": "#/$defs/TerugMeldingHeader"
+    },
+    "terugMeldingBody": {
+      "type": "object",
+      "properties": {
+        "objectIdentificatie": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ObjectIdentificatie"
+          }
+        },
+        "geometry": {
+          "$ref": "#/$defs/Geometry"
+        },
+        "terugMeldingGegevens": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/TerugMeldingGegeven"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Bijlage": {
+      "type": "object",
+      "properties": {
+        "bestandsnaam": {
+          "type": "string"
+        },
+        "beschrijving": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string",
+          "oneOf": [
+            {
+              "title": "application/pdf"
+            },
+            {
+              "title": "image/jpeg"
+            }
+          ]
+        },
+        "bijlageData": {
+          "description": "Het bestand zelf in Base64-binary encoding.",
+          "type": "string"
+        }
+      }
+    },
+    "ContactInformatie": {
+      "type": "object",
+      "properties": {
+        "naam": {
+          "type": "string"
+        },
+        "telefoon": {
+          "type": "string",
+          "pattern": "^[0-9+-]{8,20}$"
+        },
+        "email": {
+          "type": "string",
+          "pattern": "^.+@.+\\..+$"
+        },
+        "bedrijf": {
+          "type": "string"
+        }
+      }
+    },
+    "Geometry": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    },
+    "ObjectIdentificatie": {
+      "description": "De identificerende kenmerken van het object / data-element waar de terugmelding op wordt gedaan. Een of meerdere van deze kenmerken verwijst naar 1 uniek object.",
+      "type": "object",
+      "properties": {
+        "objectType": {
+          "description": "De naam van het type van het object (persoon / gebouw / etc)",
+          "type": "string"
+        },
+        "attribuutUrn": {
+          "description": "Het attribuut wat gebruikt wordt om te identificeren op het object (bsn / id / guid) in URN formaat (urn:brp:persoon:bsn).",
+          "type": "string"
+        },
+        "idWaarde": {
+          "description": "De waarde van het identificerende attribuut.",
+          "type": "string"
+        }
+      }
+    },
+    "Registratie": {
+      "type": "object",
+      "properties": {
+        "naam": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "houder": {
+          "type": "string"
+        },
+        "basisRegistratieCode": {
+          "description": "Code (maximaal 3 letterig) waarmee de basisregistratie wordt aangeduid wanneer de houder van een landelijke voorziening meer dan 1 basisregistratie beheert (bv BRT, BGT).",
+          "type": "string",
+          "oneOf": [
+            {
+              "title": "Basisregistratie Personen",
+              "const": "BRP"
+            },
+            {
+              "title": "Basisregistratie Adressen en Gebouwen",
+              "const": "BAG"
+            },
+            {
+              "title": "Handelsregister",
+              "const": "HR"
+            },
+            {
+              "title": "Basisregistratie Kadaster",
+              "const": "BRK"
+            },
+            {
+              "title": "Basisregistratie Waarde Onroerende Zaken",
+              "const": "WOZ"
+            },
+            {
+              "title": "Basisregistratie Voertuigen",
+              "const": "BRV"
+            },
+            {
+              "title": "Basisregistratie Grootschalige Topografie",
+              "const": "BGT"
+            },
+            {
+              "title": "Basisregistratie Topografie",
+              "const": "BRT"
+            },
+            {
+              "title": "Basisregistratie Ondergrond",
+              "const": "BRO"
+            },
+            {
+              "title": "Basisregistratie Inkomen",
+              "const": "BRI"
+            }
+          ]
+        }
+      }
+    },
+    "TerugMeldingGegeven": {
+      "type": "object",
+      "properties": {
+        "objectType": {
+          "description": "Een eventueel subelement/object waar de wijziging in plaats moet vinden. Gebruik dit als de objectIdentificatie hoort bij een ander element dan waar de wijziging moet plaats vinden. (bijv: objectIdentificatie hoort bij bedrijf, melding heeft betrekking op bedrijf/adres)",
+          "type": "string"
+        },
+        "attribuutUrn": {
+          "description": "De unieke verwijzing naar het attribuut wat gewijzigd moet worden (bijv. urn:brp:persoon:binnenlands-adres-ingezetene:huisnummer).",
+          "type": "string"
+        },
+        "betwijfeldeWaarde": {
+          "type": "string"
+        },
+        "voorgesteldeWaarde": {
+          "type": "string"
+        },
+        "eigenvelden": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "bijlages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Bijlage"
+          }
+        }
+      }
+    },
+    "TerugMeldingHeader": {
+      "type": "object",
+      "properties": {
+        "registratie": {
+          "type": "object",
+          "$ref": "#/$defs/Registratie"
+        },
+        "melder": {
+          "type": "object",
+          "$ref": "#/$defs/ContactInformatie"
+        },
+        "datumMelding": {
+          "type": "string",
+          "format": "date"
+        },
+        "peilmoment": {
+          "description": "Datum en tijd waarop de waarneming is gedaan.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "referentiekenmerk": {
+          "description": "Een eigen kenmerk voor de terugmelding van de melder.",
+          "type": "string"
+        },
+        "meldingBron": {
+          "description": "Via welk kanaal is deze melding gedaan? (app, api, website, etc)",
+          "type": "string"
+        }
+      }
+    }
+  }
+}
