@@ -135,11 +135,7 @@ common:
 - type: YouTube
   url: https://www.youtube.com/@Logius_minbzk
 - type: SpectralRules
-  url: https://github.com/Logius-standaarden/Publicatie-Preview/blob/69a551bca14beeea84213c155a7c82c75bafabe5/API-Design-Rules/bad-request-errors/media/linter.yaml
-- type: SpectralRules
   url: https://github.com/Logius-standaarden/API-Design-Rules/blob/27297e8e45282aeeddb31c011965b5e377b02d6f/media/linter.yaml
-- type: SpectralRules
-  url: https://github.com/Logius-standaarden/Publicatie-Preview/blob/69a551bca14beeea84213c155a7c82c75bafabe5/API-Design-Rules/release/2.2/media/linter.yaml
 
 apis:
 - aid: logius:digipoort-wus-2-0-bedrijven
