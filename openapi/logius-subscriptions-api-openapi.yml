@@ -1,11 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Logius Subscriptions API
-  version: 0.1.5
+  title: Notification Subscriptions API
+  description: 'The API consists of three parts:
+
+    1.'
   license:
     name: EUPL 1.2
     url: https://opensource.org/licenses/EUPL-1.2
-  description: 'Operations tagged subscriptions across 2 of this provider''s published API definitions: logius-notificatieservices-openapi.yml, logius-notificatieservices-openapi.yml. Each path carries the servers of the definition it was published in.'
+  version: 0.1.5
 servers:
 - url: /api/v1
 security:
@@ -325,8 +327,6 @@ paths:
       security:
       - JWT-Claims:
         - events.consume
-    servers:
-    - url: /api/v1
   /subscriptions/{uuid}:
     get:
       operationId: subscription_get
@@ -977,10 +977,76 @@ paths:
       security:
       - JWT-Claims:
         - events.consume
-    servers:
-    - url: /api/v1
 components:
   schemas:
+    AccessTokenCredential:
+      type: object
+      description: An access token credential.
+      allOf:
+      - $ref: '#/components/schemas/SinkCredential'
+      - properties:
+          accessToken:
+            description: REQUIRED. An access token is a previously acquired token granting access to the target resource.
+            type: string
+          accessTokenExpiresUtc:
+            type: string
+            format: date-time
+            description: RECOMMENDED. An absolute UTC instant at which the token shall be considered expired.
+          accessTokenType:
+            description: OPTIONAL. )Type of the access token (See https://tools.ietf.org/html/rfc6749#section-7.1).
+            type: string
+            default: bearer
+        required:
+        - accessToken
+        - accessTokenExpiresUtc
+    Filter:
+      title: Filter
+      description: A filter from a selection of multiple filter types and dialects
+      type: object
+      additionalProperties: true
+    Subscription:
+      type: object
+      title: Subscription
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionRequest'
+      - type: object
+        properties:
+          url:
+            title: URL
+            description: URL reference to this resource. This link is generated automatically.
+            type: string
+            format: uri
+            maxLength: 2042
+            minLength: 1
+            readOnly: true
+            example: https://example.com
+          id:
+            type: string
+            format: uuid
+            description: REQUIRED. The unique identifier of the subscription in the scope of the subscription manager.
+            example: a2de4777-1160-4562-a996-b79d27b30c99
+      required:
+      - url
+      - id
+      - sink
+      - protocol
+    NotFilter:
+      allOf:
+      - $ref: '#/components/schemas/Filter'
+      - type: object
+        description: not filter
+        properties:
+          not:
+            type: object
+            oneOf:
+            - $ref: '#/components/schemas/Filter'
+            - $ref: '#/components/schemas/AllFilter'
+            - $ref: '#/components/schemas/AnyFilter'
+            - $ref: '#/components/schemas/NotFilter'
+            - $ref: '#/components/schemas/ExactFilter'
+            - $ref: '#/components/schemas/PrefixFilter'
+            - $ref: '#/components/schemas/SuffixFilter'
+        additionalProperties: false
     RefreshTokenCredential:
       type: object
       description: An access token credential with a refresh token.
@@ -1070,57 +1136,6 @@ components:
           - REFRESHTOKEN
           description: The type of the credential.
       additionalProperties: false
-    AnyFilter:
-      allOf:
-      - $ref: '#/components/schemas/Filter'
-      - type: object
-        description: any filter
-        properties:
-          any:
-            description: This filter evaluates to 'true' if any contained filters are 'true'
-            type: array
-            minItems: 1
-            items:
-              title: Filter entry
-              oneOf:
-              - $ref: '#/components/schemas/Filter'
-              - $ref: '#/components/schemas/AllFilter'
-              - $ref: '#/components/schemas/AnyFilter'
-              - $ref: '#/components/schemas/NotFilter'
-              - $ref: '#/components/schemas/ExactFilter'
-              - $ref: '#/components/schemas/PrefixFilter'
-              - $ref: '#/components/schemas/SuffixFilter'
-        additionalProperties: false
-    CloudEventsAttribute:
-      type: object
-      description: CloudEvents defined attributes.
-      additionalProperties:
-        type: string
-      properties:
-        id:
-          type: string
-          description: Identifies the event.
-        source:
-          type: string
-          description: Identifies the context in which an event happened.
-        specversion:
-          type: string
-          description: The version of the CloudEvents specification which the event uses.
-        type:
-          type: string
-          description: Describes the type of event related to the originating occurrence.
-        datacontenttype:
-          type: string
-          description: Content type of the data value.
-        dataschema:
-          type: string
-          description: Identifies the schema that data adheres to.
-        subject:
-          type: string
-          description: Describes the subject of the event in the context of the event producer.
-        time:
-          type: string
-          description: Timestamp of when the occurrence happened.
     Error:
       required:
       - code
@@ -1158,28 +1173,42 @@ components:
           description: URI met referentie naar dit specifiek voorkomen van de Error. Deze kan gebruikt worden in combinatie met server logs, bijvoorbeeld.
           type: string
           minLength: 1
+    PrefixFilter:
+      allOf:
+      - $ref: '#/components/schemas/Filter'
+      - type: object
+        title: prefix filter
+        description: This filter evaluates to 'true' if the 'value' is a prefix of the value of the indicated CloudEvents context attribute
+        properties:
+          prefix:
+            $ref: '#/components/schemas/CloudEventsAttribute'
+        additionalProperties: false
     Protocol:
       type: string
       enum:
       - HTTP
       description: REQUIRED. Identifier of a delivery protocol.
       example: HTTP
-    NotFilter:
+    AllFilter:
       allOf:
       - $ref: '#/components/schemas/Filter'
       - type: object
-        description: not filter
+        description: all filter
         properties:
-          not:
-            type: object
-            oneOf:
-            - $ref: '#/components/schemas/Filter'
-            - $ref: '#/components/schemas/AllFilter'
-            - $ref: '#/components/schemas/AnyFilter'
-            - $ref: '#/components/schemas/NotFilter'
-            - $ref: '#/components/schemas/ExactFilter'
-            - $ref: '#/components/schemas/PrefixFilter'
-            - $ref: '#/components/schemas/SuffixFilter'
+          all:
+            description: This filter evaluates to 'true' if all contained filters are 'true'
+            type: array
+            minItems: 1
+            items:
+              title: Filter entry
+              oneOf:
+              - $ref: '#/components/schemas/Filter'
+              - $ref: '#/components/schemas/AllFilter'
+              - $ref: '#/components/schemas/AnyFilter'
+              - $ref: '#/components/schemas/NotFilter'
+              - $ref: '#/components/schemas/ExactFilter'
+              - $ref: '#/components/schemas/PrefixFilter'
+              - $ref: '#/components/schemas/SuffixFilter'
         additionalProperties: false
     FieldValidationError:
       required:
@@ -1203,31 +1232,6 @@ components:
           description: Uitleg wat er precies Error is met de gegevens
           type: string
           minLength: 1
-    AccessTokenCredential:
-      type: object
-      description: An access token credential.
-      allOf:
-      - $ref: '#/components/schemas/SinkCredential'
-      - properties:
-          accessToken:
-            description: REQUIRED. An access token is a previously acquired token granting access to the target resource.
-            type: string
-          accessTokenExpiresUtc:
-            type: string
-            format: date-time
-            description: RECOMMENDED. An absolute UTC instant at which the token shall be considered expired.
-          accessTokenType:
-            description: OPTIONAL. )Type of the access token (See https://tools.ietf.org/html/rfc6749#section-7.1).
-            type: string
-            default: bearer
-        required:
-        - accessToken
-        - accessTokenExpiresUtc
-    Filter:
-      title: Filter
-      description: A filter from a selection of multiple filter types and dialects
-      type: object
-      additionalProperties: true
     HTTPSettings:
       type: object
       allOf:
@@ -1242,50 +1246,6 @@ components:
             enum:
             - POST
             example: POST
-    PrefixFilter:
-      allOf:
-      - $ref: '#/components/schemas/Filter'
-      - type: object
-        title: prefix filter
-        description: This filter evaluates to 'true' if the 'value' is a prefix of the value of the indicated CloudEvents context attribute
-        properties:
-          prefix:
-            $ref: '#/components/schemas/CloudEventsAttribute'
-        additionalProperties: false
-    ProtocolSettings:
-      type: object
-      additionalProperties: false
-    ExactFilter:
-      allOf:
-      - $ref: '#/components/schemas/Filter'
-      - type: object
-        title: exact filter
-        description: This filter evaluates to 'true' if the 'value' exactly matches the value of the indicated CloudEvents context attribute
-        properties:
-          exact:
-            $ref: '#/components/schemas/CloudEventsAttribute'
-        additionalProperties: false
-    AllFilter:
-      allOf:
-      - $ref: '#/components/schemas/Filter'
-      - type: object
-        description: all filter
-        properties:
-          all:
-            description: This filter evaluates to 'true' if all contained filters are 'true'
-            type: array
-            minItems: 1
-            items:
-              title: Filter entry
-              oneOf:
-              - $ref: '#/components/schemas/Filter'
-              - $ref: '#/components/schemas/AllFilter'
-              - $ref: '#/components/schemas/AnyFilter'
-              - $ref: '#/components/schemas/NotFilter'
-              - $ref: '#/components/schemas/ExactFilter'
-              - $ref: '#/components/schemas/PrefixFilter'
-              - $ref: '#/components/schemas/SuffixFilter'
-        additionalProperties: false
     ValidationError:
       required:
       - code
@@ -1328,32 +1288,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldValidationError'
-    Subscription:
-      type: object
-      title: Subscription
+    ExactFilter:
       allOf:
-      - $ref: '#/components/schemas/SubscriptionRequest'
+      - $ref: '#/components/schemas/Filter'
       - type: object
+        title: exact filter
+        description: This filter evaluates to 'true' if the 'value' exactly matches the value of the indicated CloudEvents context attribute
         properties:
-          url:
-            title: URL
-            description: URL reference to this resource. This link is generated automatically.
-            type: string
-            format: uri
-            maxLength: 2042
-            minLength: 1
-            readOnly: true
-            example: https://example.com
-          id:
-            type: string
-            format: uuid
-            description: REQUIRED. The unique identifier of the subscription in the scope of the subscription manager.
-            example: a2de4777-1160-4562-a996-b79d27b30c99
-      required:
-      - url
-      - id
-      - sink
-      - protocol
+          exact:
+            $ref: '#/components/schemas/CloudEventsAttribute'
+        additionalProperties: false
+    AnyFilter:
+      allOf:
+      - $ref: '#/components/schemas/Filter'
+      - type: object
+        description: any filter
+        properties:
+          any:
+            description: This filter evaluates to 'true' if any contained filters are 'true'
+            type: array
+            minItems: 1
+            items:
+              title: Filter entry
+              oneOf:
+              - $ref: '#/components/schemas/Filter'
+              - $ref: '#/components/schemas/AllFilter'
+              - $ref: '#/components/schemas/AnyFilter'
+              - $ref: '#/components/schemas/NotFilter'
+              - $ref: '#/components/schemas/ExactFilter'
+              - $ref: '#/components/schemas/PrefixFilter'
+              - $ref: '#/components/schemas/SuffixFilter'
+        additionalProperties: false
     SuffixFilter:
       allOf:
       - $ref: '#/components/schemas/Filter'
@@ -1364,11 +1329,41 @@ components:
           suffix:
             $ref: '#/components/schemas/CloudEventsAttribute'
         additionalProperties: false
+    CloudEventsAttribute:
+      type: object
+      description: CloudEvents defined attributes.
+      additionalProperties:
+        type: string
+      properties:
+        id:
+          type: string
+          description: Identifies the event.
+        source:
+          type: string
+          description: Identifies the context in which an event happened.
+        specversion:
+          type: string
+          description: The version of the CloudEvents specification which the event uses.
+        type:
+          type: string
+          description: Describes the type of event related to the originating occurrence.
+        datacontenttype:
+          type: string
+          description: Content type of the data value.
+        dataschema:
+          type: string
+          description: Identifies the schema that data adheres to.
+        subject:
+          type: string
+          description: Describes the subject of the event in the context of the event producer.
+        time:
+          type: string
+          description: Timestamp of when the occurrence happened.
+    ProtocolSettings:
+      type: object
+      additionalProperties: false
   securitySchemes:
     JWT-Claims:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- logius-notificatieservices-openapi.yml
-- logius-notificatieservices-openapi.yml

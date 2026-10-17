@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Logius Peers API
+  title: FSC Core Peers API
   version: 1.0.0
-  description: 'Operations tagged Peers across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Manager REST API
 servers:
 - url: https://{managerUrl}:8443/v1
   variables:
@@ -55,39 +55,33 @@ paths:
                 - pagination
       tags:
       - Peers
-    servers:
-    - url: https://{managerUrl}:8443/v1
-      variables:
-        managerUrl:
-          default: localhost
-          description: URL of the Manager
 components:
+  parameters:
+    queryPaginationOrder:
+      in: query
+      name: sort_order
+      description: The sorting order of the results
+      required: false
+      schema:
+        $ref: '#/components/schemas/sortOrder'
+    queryPaginationLimit:
+      in: query
+      name: limit
+      description: The maximum number of results
+      schema:
+        type: integer
+        format: uint32
+        maximum: 1000
+        minimum: 1
+      required: false
+    queryPaginationCursor:
+      in: query
+      name: cursor
+      description: A cursor from which paginated results should be returned. Leave empty for the first page
+      schema:
+        type: string
+      required: false
   schemas:
-    peerID:
-      description: The ID of a Peer
-      type: string
-      example: '12345678901234567891'
-      minLength: 3
-      maxLength: 255
-    peerName:
-      description: The name of a Peer
-      type: string
-      example: Peer A
-      minLength: 3
-      maxLength: 255
-    paginationResult:
-      type: object
-      properties:
-        next_cursor:
-          description: A cursor that can be used to retrieve the next page or an empty string if there are no more results
-          type: string
-    sortOrder:
-      description: The order in which the results should be returned
-      type: string
-      default: SORT_ORDER_DESCENDING
-      enum:
-      - SORT_ORDER_ASCENDING
-      - SORT_ORDER_DESCENDING
     peer:
       type: object
       properties:
@@ -105,31 +99,28 @@ components:
       - id
       - name
       - manager_address
-  parameters:
-    queryPaginationCursor:
-      in: query
-      name: cursor
-      description: A cursor from which paginated results should be returned. Leave empty for the first page
-      schema:
-        type: string
-      required: false
-    queryPaginationLimit:
-      in: query
-      name: limit
-      description: The maximum number of results
-      schema:
-        type: integer
-        format: uint32
-        maximum: 1000
-        minimum: 1
-      required: false
-    queryPaginationOrder:
-      in: query
-      name: sort_order
-      description: The sorting order of the results
-      required: false
-      schema:
-        $ref: '#/components/schemas/sortOrder'
-x-refined-from:
-- logius-fsc-manager-openapi.yml
-- logius-fsc-manager-openapi.yml
+    peerID:
+      description: The ID of a Peer
+      type: string
+      example: '12345678901234567891'
+      minLength: 3
+      maxLength: 255
+    sortOrder:
+      description: The order in which the results should be returned
+      type: string
+      default: SORT_ORDER_DESCENDING
+      enum:
+      - SORT_ORDER_ASCENDING
+      - SORT_ORDER_DESCENDING
+    peerName:
+      description: The name of a Peer
+      type: string
+      example: Peer A
+      minLength: 3
+      maxLength: 255
+    paginationResult:
+      type: object
+      properties:
+        next_cursor:
+          description: A cursor that can be used to retrieve the next page or an empty string if there are no more results
+          type: string

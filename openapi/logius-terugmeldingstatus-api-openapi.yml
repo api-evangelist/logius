@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Logius Terugmelding Status API
+  title: Terugmeldingen Standaard Terugmelding Status API
+  description: Specificatie voor terugmelden op overheidsregistraties
   version: '0.3'
-  description: 'Operations tagged TerugmeldingStatus across 2 of this provider''s published API definitions: logius-terugmelding-openapi.yml, logius-terugmelding-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: TerugmeldingStatus
 paths:
@@ -52,6 +52,3 @@ components:
         beschrijving:
           description: Aanvullende informatie over de terugmelding
           type: string
-x-refined-from:
-- logius-terugmelding-openapi.yml
-- logius-terugmelding-openapi.yml

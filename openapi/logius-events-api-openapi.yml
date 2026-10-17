@@ -1,11 +1,13 @@
 openapi: 3.2.0
 info:
-  title: Logius Events API
-  version: 0.1.5
+  title: Notification Events API
+  description: 'The API consists of three parts:
+
+    1.'
   license:
     name: EUPL 1.2
     url: https://opensource.org/licenses/EUPL-1.2
-  description: 'Operations tagged events across 2 of this provider''s published API definitions: logius-notificatieservices-openapi.yml, logius-notificatieservices-openapi.yml. Each path carries the servers of the definition it was published in.'
+  version: 0.1.5
 servers:
 - url: /api/v1
 security:
@@ -163,30 +165,43 @@ paths:
       security:
       - JWT-Claims:
         - events.publish
-    servers:
-    - url: /api/v1
 components:
   schemas:
-    FieldValidationError:
+    Error:
       required:
-      - name
       - code
-      - reason
+      - title
+      - status
+      - detail
+      - instance
       type: object
       properties:
-        name:
-          title: Name
-          description: Naam van het veld met ongeldige gegevens
+        type:
+          title: Type
+          description: URI referentie naar het type Error, bedoeld voor developers
           type: string
-          minLength: 1
         code:
           title: Code
           description: Systeemcode die het type Error aangeeft
           type: string
           minLength: 1
-        reason:
-          title: Reason
-          description: Uitleg wat er precies Error is met de gegevens
+        title:
+          title: Title
+          description: Generieke titel voor het type Error
+          type: string
+          minLength: 1
+        status:
+          title: Status
+          description: De HTTP status code
+          type: integer
+        detail:
+          title: Detail
+          description: Extra informatie bij de Error, indien beschikbaar
+          type: string
+          minLength: 1
+        instance:
+          title: Instance
+          description: URI met referentie naar dit specifiek voorkomen van de Error. Deze kan gebruikt worden in combinatie met server logs, bijvoorbeeld.
           type: string
           minLength: 1
     ValidationError:
@@ -231,43 +246,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldValidationError'
-    Error:
-      required:
-      - code
-      - title
-      - status
-      - detail
-      - instance
-      type: object
-      properties:
-        type:
-          title: Type
-          description: URI referentie naar het type Error, bedoeld voor developers
-          type: string
-        code:
-          title: Code
-          description: Systeemcode die het type Error aangeeft
-          type: string
-          minLength: 1
-        title:
-          title: Title
-          description: Generieke titel voor het type Error
-          type: string
-          minLength: 1
-        status:
-          title: Status
-          description: De HTTP status code
-          type: integer
-        detail:
-          title: Detail
-          description: Extra informatie bij de Error, indien beschikbaar
-          type: string
-          minLength: 1
-        instance:
-          title: Instance
-          description: URI met referentie naar dit specifiek voorkomen van de Error. Deze kan gebruikt worden in combinatie met server logs, bijvoorbeeld.
-          type: string
-          minLength: 1
     Event:
       required:
       - id
@@ -419,11 +397,30 @@ components:
         <filterAttribute1>: string
         <filterAttribute2>: string
         <filterAttributeN>: string
+    FieldValidationError:
+      required:
+      - name
+      - code
+      - reason
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Naam van het veld met ongeldige gegevens
+          type: string
+          minLength: 1
+        code:
+          title: Code
+          description: Systeemcode die het type Error aangeeft
+          type: string
+          minLength: 1
+        reason:
+          title: Reason
+          description: Uitleg wat er precies Error is met de gegevens
+          type: string
+          minLength: 1
   securitySchemes:
     JWT-Claims:
       bearerFormat: JWT
       scheme: bearer
       type: http
-x-refined-from:
-- logius-notificatieservices-openapi.yml
-- logius-notificatieservices-openapi.yml

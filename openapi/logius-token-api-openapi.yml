@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Logius Token API
+  title: FSC Core Token API
   version: 1.0.0
-  description: 'Operations tagged Token across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Manager REST API
 servers:
 - url: https://{managerUrl}:8443/v1
   variables:
@@ -66,12 +66,6 @@ paths:
                 - error
       tags:
       - Token
-    servers:
-    - url: https://{managerUrl}:8443/v1
-      variables:
-        managerUrl:
-          default: localhost
-          description: URL of the Manager
 components:
   schemas:
     peerID:
@@ -80,16 +74,6 @@ components:
       example: '12345678901234567891'
       minLength: 3
       maxLength: 255
-    oAuthGrantType:
-      description: The grant_type of an access token request. FSC only uses client_credentials
-      type: string
-      enum:
-      - client_credentials
-    oAuthTokenType:
-      description: The type of token. FSC only uses Bearer
-      type: string
-      enum:
-      - bearer
     tokenErrorCode:
       description: one of the error codes described in https://www.rfc-editor.org/rfc/rfc6749#section-5.2
       type: string
@@ -101,6 +85,13 @@ components:
       - invalid_scope
       - unauthorized_client
       - unsupported_grant_type
-x-refined-from:
-- logius-fsc-manager-openapi.yml
-- logius-fsc-manager-openapi.yml
+    oAuthGrantType:
+      description: The grant_type of an access token request. FSC only uses client_credentials
+      type: string
+      enum:
+      - client_credentials
+    oAuthTokenType:
+      description: The type of token. FSC only uses Bearer
+      type: string
+      enum:
+      - bearer

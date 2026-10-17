@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Logius .well Known API
+  title: FSC Core .well Known API
   version: 1.0.0
-  description: 'Operations tagged .well Known across 2 of this provider''s published API definitions: logius-fsc-manager-openapi.yml, logius-fsc-manager-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Manager REST API
 servers:
 - url: https://{managerUrl}:8443/v1
   variables:
@@ -25,12 +25,6 @@ paths:
                 $ref: '#/components/schemas/jwks'
       tags:
       - .well Known
-    servers:
-    - url: https://{managerUrl}:8443/v1
-      variables:
-        managerUrl:
-          default: localhost
-          description: URL of the Manager
 components:
   schemas:
     jwks:
@@ -242,6 +236,45 @@ components:
       - $ref: '#/components/schemas/rsaPublicKey'
       required:
       - kty
+    rsaPublicKey:
+      type: object
+      properties:
+        n:
+          type: string
+          format: byte
+          description: 'Public Key modulus. This parameter contains the modulus value for the RSA
+
+            public key. It is represented as a Base64urlUInt-encoded value.
+
+
+            Note that implementers have found that some cryptographic libraries
+
+            prefix an extra zero-valued octet to the modulus representations they
+
+            return, for instance, returning 257 octets for a 2048-bit key, rather
+
+            than 256. Implementations using such libraries will need to take
+
+            care to omit the extra octet from the base64url-encoded
+
+            representation.
+
+            '
+        e:
+          type: string
+          format: byte
+          description: 'Public Key exponent. This parameter contains the exponent value for the RSA
+
+            public key. It is represented as a Base64urlUInt-encoded value.
+
+
+            For instance, when representing the value 65537, the octet sequence
+
+            to be base64url-encoded MUST consist of the three octets [1, 0, 1];
+
+            the resulting representation for this value is "AQAB".
+
+            '
     ecPublicKey:
       type: object
       properties:
@@ -285,45 +318,3 @@ components:
             '
           minLength: 66
           maxLength: 66
-    rsaPublicKey:
-      type: object
-      properties:
-        n:
-          type: string
-          format: byte
-          description: 'Public Key modulus. This parameter contains the modulus value for the RSA
-
-            public key. It is represented as a Base64urlUInt-encoded value.
-
-
-            Note that implementers have found that some cryptographic libraries
-
-            prefix an extra zero-valued octet to the modulus representations they
-
-            return, for instance, returning 257 octets for a 2048-bit key, rather
-
-            than 256. Implementations using such libraries will need to take
-
-            care to omit the extra octet from the base64url-encoded
-
-            representation.
-
-            '
-        e:
-          type: string
-          format: byte
-          description: 'Public Key exponent. This parameter contains the exponent value for the RSA
-
-            public key. It is represented as a Base64urlUInt-encoded value.
-
-
-            For instance, when representing the value 65537, the octet sequence
-
-            to be base64url-encoded MUST consist of the three octets [1, 0, 1];
-
-            the resulting representation for this value is "AQAB".
-
-            '
-x-refined-from:
-- logius-fsc-manager-openapi.yml
-- logius-fsc-manager-openapi.yml

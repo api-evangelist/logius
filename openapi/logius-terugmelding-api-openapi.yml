@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Logius Terugmelding API
+  title: Terugmeldingen Standaard Terugmelding API
+  description: Specificatie voor terugmelden op overheidsregistraties
   version: '0.3'
-  description: 'Operations tagged Terugmelding across 2 of this provider''s published API definitions: logius-terugmelding-openapi.yml, logius-terugmelding-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Terugmelding
 paths:
@@ -47,6 +47,84 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ObjectIdentificatie:
+      description: De identificerende kenmerken van het object / data-element waar de terugmelding op wordt gedaan. Een of meerdere van deze kenmerken verwijst naar 1 uniek object.
+      type: object
+      properties:
+        objectType:
+          description: De naam van het type van het object (persoon / gebouw / etc)
+          type: string
+        attribuutUrn:
+          description: Het attribuut wat gebruikt wordt om te identificeren op het object (bsn / id / guid) in URN formaat (urn:brp:persoon:bsn).
+          type: string
+        idWaarde:
+          description: De waarde van het identificerende attribuut.
+          type: string
+    ContactInformatie:
+      type: object
+      properties:
+        naam:
+          type: string
+        telefoon:
+          type: string
+          pattern: ^[0-9+-]{8,20}$
+        email:
+          type: string
+          pattern: ^.+@.+\..+$
+        bedrijf:
+          type: string
+    Geometry:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: number
+            format: double
+    TerugMelding:
+      type: object
+      properties:
+        terugMeldingHeader:
+          $ref: '#/components/schemas/TerugMeldingHeader'
+        terugMeldingBody:
+          type: object
+          properties:
+            objectIdentificatie:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/ObjectIdentificatie'
+            geometry:
+              $ref: '#/components/schemas/Geometry'
+            terugMeldingGegevens:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/TerugMeldingGegeven'
+    TerugMeldingHeader:
+      type: object
+      properties:
+        registratie:
+          type: object
+          $ref: '#/components/schemas/Registratie'
+        melder:
+          type: object
+          $ref: '#/components/schemas/ContactInformatie'
+        datumMelding:
+          type: string
+          format: date
+        peilmoment:
+          description: Datum en tijd waarop de waarneming is gedaan.
+          type: string
+          format: date-time
+        referentiekenmerk:
+          description: Een eigen kenmerk voor de terugmelding van de melder.
+          type: string
+        meldingBron:
+          description: Via welk kanaal is deze melding gedaan? (app, api, website, etc)
+          type: string
     TerugMeldingGegeven:
       type: object
       properties:
@@ -67,6 +145,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Bijlage'
+    Ontvangen:
+      description: Terugmelding ontvangen
+      type: object
+      properties:
+        terugMeldingReferentie:
+          description: Een door de ontvangende partij gegenereerde referentie van de TerugMelding
+          type: string
+          format: uuid
+        referentieKenmerk:
+          description: De door de meldende partij opgegeven referentie
+          type: string
+        status:
+          description: Code (maximaal 3 letterig) waarmee de basisregistratie wordt aangeduid wanneer de houder van een landelijke voorziening meer dan 1 basisregistratie beheert (bv BRT, BGT).
+          type: string
+          oneOf:
+          - title: Gemeld
+          - title: In Behandeling
+          - title: Ingepland
+          - title: Ingetrokken
+          - title: Onvoldoende ContactInformatie
+          - title: Afgehandeld
+        beschrijving:
+          description: Aanvullende informatie over de terugmelding
+          type: string
     Registratie:
       type: object
       properties:
@@ -100,32 +202,6 @@ components:
             const: BRO
           - title: Basisregistratie Inkomen
             const: BRI
-    ObjectIdentificatie:
-      description: De identificerende kenmerken van het object / data-element waar de terugmelding op wordt gedaan. Een of meerdere van deze kenmerken verwijst naar 1 uniek object.
-      type: object
-      properties:
-        objectType:
-          description: De naam van het type van het object (persoon / gebouw / etc)
-          type: string
-        attribuutUrn:
-          description: Het attribuut wat gebruikt wordt om te identificeren op het object (bsn / id / guid) in URN formaat (urn:brp:persoon:bsn).
-          type: string
-        idWaarde:
-          description: De waarde van het identificerende attribuut.
-          type: string
-    ContactInformatie:
-      type: object
-      properties:
-        naam:
-          type: string
-        telefoon:
-          type: string
-          pattern: ^[0-9+-]{8,20}$
-        email:
-          type: string
-          pattern: ^.+@.+\..+$
-        bedrijf:
-          type: string
     Bijlage:
       type: object
       properties:
@@ -141,82 +217,3 @@ components:
         bijlageData:
           description: Het bestand zelf in Base64-binary encoding.
           type: string
-    TerugMeldingHeader:
-      type: object
-      properties:
-        registratie:
-          type: object
-          $ref: '#/components/schemas/Registratie'
-        melder:
-          type: object
-          $ref: '#/components/schemas/ContactInformatie'
-        datumMelding:
-          type: string
-          format: date
-        peilmoment:
-          description: Datum en tijd waarop de waarneming is gedaan.
-          type: string
-          format: date-time
-        referentiekenmerk:
-          description: Een eigen kenmerk voor de terugmelding van de melder.
-          type: string
-        meldingBron:
-          description: Via welk kanaal is deze melding gedaan? (app, api, website, etc)
-          type: string
-    TerugMelding:
-      type: object
-      properties:
-        terugMeldingHeader:
-          $ref: '#/components/schemas/TerugMeldingHeader'
-        terugMeldingBody:
-          type: object
-          properties:
-            objectIdentificatie:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/ObjectIdentificatie'
-            geometry:
-              $ref: '#/components/schemas/Geometry'
-            terugMeldingGegevens:
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/TerugMeldingGegeven'
-    Ontvangen:
-      description: Terugmelding ontvangen
-      type: object
-      properties:
-        terugMeldingReferentie:
-          description: Een door de ontvangende partij gegenereerde referentie van de TerugMelding
-          type: string
-          format: uuid
-        referentieKenmerk:
-          description: De door de meldende partij opgegeven referentie
-          type: string
-        status:
-          description: Code (maximaal 3 letterig) waarmee de basisregistratie wordt aangeduid wanneer de houder van een landelijke voorziening meer dan 1 basisregistratie beheert (bv BRT, BGT).
-          type: string
-          oneOf:
-          - title: Gemeld
-          - title: In Behandeling
-          - title: Ingepland
-          - title: Ingetrokken
-          - title: Onvoldoende ContactInformatie
-          - title: Afgehandeld
-        beschrijving:
-          description: Aanvullende informatie over de terugmelding
-          type: string
-    Geometry:
-      type: object
-      properties:
-        type:
-          type: string
-        coordinates:
-          type: array
-          items:
-            type: number
-            format: double
-x-refined-from:
-- logius-terugmelding-openapi.yml
-- logius-terugmelding-openapi.yml
