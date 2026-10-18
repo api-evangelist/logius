@@ -257,6 +257,8 @@ apis:
     https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
   baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
   tags:
+  - Domains
+  tags_raw:
   - domains
   properties:
   - type: OpenAPI
@@ -296,6 +298,8 @@ apis:
     https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
   baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
   tags:
+  - Event
+  tags_raw:
   - events
   properties:
   - type: OpenAPI
@@ -335,6 +339,8 @@ apis:
     https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
   baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
   tags:
+  - Managers
+  tags_raw:
   - manager
   properties:
   - type: OpenAPI
@@ -452,6 +458,8 @@ apis:
     https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
   baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
   tags:
+  - Subscription
+  tags_raw:
   - subscriptions
   properties:
   - type: OpenAPI
@@ -569,6 +577,8 @@ apis:
     https://www.logius.nl/onze-dienstverlening/gegevensuitwisseling/digipoort/wat-is-het/koppelvlakken/wus-voor-bedrijven
   baseURL: https://dgp.procesinfrastructuur.nl/wus/2.0
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
