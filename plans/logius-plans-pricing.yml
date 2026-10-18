@@ -34,3 +34,34 @@ plans:
   billing: per processed message
   features: []
   limits: []
+x-canonical:
+  generated: '2026-10-18'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: GDI central funding (2023 onwards)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: DigiD (tarief 2022, historical)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: DigiD Machtigen (tarief 2022, historical)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: MijnOverheid Berichtenbox (tarief 2022, historical)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
